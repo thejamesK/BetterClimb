@@ -1,0 +1,213 @@
+<aura:component description="BC_AccountDivisionHeader" implements="flexipage:availableForAllPageTypes" access="global">
+    <ltng:require styles="{!$Resource.NoHeader}"/>
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="accForm" type="Account" default="{'sobjectType' : 'Account'}"/>
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Gold', 'value': 'gold'},
+    {'label': 'Silver', 'value': 'silver'},
+    {'label': 'Platinium', 'value': 'platinium'},
+    {'label': 'Bronze', 'value': 'bronze'},
+    ]"/>
+    <aura:attribute name="disabled" type="Boolean" default="false" />
+    <aura:attribute name="saved" type="Boolean" default="false" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <lightning:spinner variant="brand" size="large" aura:id="spinner" class="slds-hide" />
+    <aura:if isTrue="{!v.isModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container slds-align_absolute-center">
+                <header class="slds-modal__header" style="width: 60rem;">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Account: Division</h2>
+                </header>
+                <aura:if isTrue="{!v.showSpinner}">
+                    <lightning:spinner variant="brand" size="large"/>
+                </aura:if>
+                <aura:if isTrue="{!!v.saved}">
+                <lightning:recordEditForm
+                        onload="{!c.handleLoad}"
+                        onsubmit="{!c.handleSubmit}"
+                        onsuccess="{!c.handleSuccess}"
+                        objectApiName="Account">
+                    <lightning:messages />
+                <div class="slds-modal__content slds-p-around--medium slds-scrollable" style="width: 60rem; height:40rem;">
+                    <div class="slds-p-left_xx-large slds-p-right_xx-large">
+                        <div class="slds-page-header" style="padding-top: 9px; padding-bottom: 9px;, padding-right: 9px;, padding-left: 10px;">
+                            <h3 style="font-size: 1rem;" title="">Account Information</h3>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:outputField fieldName="OwnerId" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="Rating" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="Name" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="Phone" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="ParentId" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="Fax" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="AccountNumber" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="Website" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="Site" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="TickerSymbol" />
+                        </div>
+                    </div>
+                    <div class="slds-p-left_xx-large slds-p-right_xx-large">
+                        <div class="slds-page-header" style="padding-top: 9px; padding-bottom: 9px;, padding-right: 9px;, padding-left: 10px;">
+                            <h3 style="font-size: 1rem;" title="">Address Information</h3>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="BillingAddress" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2" >
+                            <lightning:inputField fieldName="ShippingAddress" />
+                        </div>
+                    </div>
+                    <div class="slds-p-left_xx-large slds-p-right_xx-large">
+                        <div class="slds-page-header" style="padding-top: 9px; padding-bottom: 9px;, padding-right: 9px;, padding-left: 10px;">
+                            <h3 style="font-size: 1rem;" title="">Additional Information</h3>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="Active__c" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="UpsellOpportunity__c" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="CustomerPriority__c" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="NumberofLocations__c" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="SLA__c" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="SLAExpirationDate__c" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="SLASerialNumber__c" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="Type" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="Industry" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="Sic" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="AnnualRevenue" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="NumberOfEmployees" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning:inputField fieldName="Ownership" />
+                    </div>
+                    </div>
+                    <div class="slds-p-left_xx-large slds-p-right_xx-large">
+                        <div class="slds-page-header" style="padding-top: 9px; padding-bottom: 9px;, padding-right: 9px;, padding-left: 10px;">
+                            <h3 style="font-size: 1rem;" title="">Description Information</h3>
+                        </div>
+                    </div>
+                    <div>
+                        <lightning:inputField fieldName="Description" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeModal }"/>
+                    <lightning:button disabled="{!v.disabled}" variant="brand" type="submit" name="save" label="Save"/>
+                </footer>
+                </lightning:recordEditForm>
+                </aura:if>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate" title="Division Search">Division Search</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                    <div class="slds-page-header__control">
+                        <ul class="slds-button-group-list">
+                            <li>
+                                <lightning:button variant="neutral"
+                                                  label="New"
+                                                  onclick="{!c.openModal}"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    <aura:if isTrue="{!v.showSpinner}">-->
+<!--        <lightning:spinner />-->
+<!--    </aura:if>-->
+<!--    <aura:if isTrue="{!!v.saved}">-->
+<!--        <lightning:recordEditForm-->
+<!--                onload="{!c.handleLoad}"-->
+<!--                onsubmit="{!c.handleSubmit}"-->
+<!--                onsuccess="{!c.handleSuccess}"-->
+<!--                objectApiName="Account">-->
+<!--            &lt;!&ndash; the messages component is for error messages &ndash;&gt;-->
+<!--            <lightning:messages />-->
+
+<!--            <lightning:inputField fieldName="Name" />-->
+<!--            <lightning:inputField fieldName="SLA__c" />-->
+<!--            <lightning:inputField fieldName="SLAExpirationDate__c" />-->
+<!--            <lightning:inputField fieldName="SLASerialNumber__c" />-->
+<!--            <div class="slds-m-top_medium">-->
+<!--                <lightning:button disabled="{!v.disabled}" variant="brand" type="submit" name="save" label="Save" />-->
+<!--            </div>-->
+<!--        </lightning:recordEditForm>-->
+<!--        <aura:set attribute="else">-->
+<!--            <p>Saved! New record id is {!v.recordId}</p>-->
+<!--        </aura:set>-->
+<!--    </aura:if>-->
+</aura:component>

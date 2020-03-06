@@ -1,0 +1,24 @@
+<aura:component description="BC_AccountDivisionSearchResultRow" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="searchResultItem" type="Map" default="{}" />
+    <aura:attribute name="rowIndex" type="Integer" default="0" />
+    <aura:attribute name="isHighlighted" type="Boolean" default="false" />
+    <aura:attribute name="rowToHighlight" type="Integer" />
+    <aura:registerEvent name="highlightDivisionEvent" type="c:BC_AccountDivisionRowHighlightEvent" />
+        <tr id="{!v.searchResultItem.Id}" class="{! v.isHighlighted ? 'slds-theme--success slds-text-title_caps' : 'slds-text-title_caps'}" onclick="{!c.selectDivision}">
+            <td>
+                <div class="slds-truncate">
+                    {!v.rowIndex + 1}
+                </div>
+            </td>
+            <td>
+                <div class="slds-truncate">
+                    {!v.searchResultItem.Name}
+                </div>
+            </td>
+            <td>
+                <div class="slds-truncate">
+                    {!v.searchResultItem.BillingCountry}
+                </div>
+            </td>
+        </tr>
+</aura:component>

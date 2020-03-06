@@ -1,0 +1,10 @@
+<aura:component description="BC_AccountDivisionMap" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:handler event="c:BC_AccountDivisionSearchResultEvent" action="{!c.onAccountsLoaded}" />
+    <aura:handler event="c:BC_AccountDivisionRowSelectedEvent" action="{!c.handleRowSelection}" />
+    <aura:attribute name="mapMarkers" type="Map[]"/>
+    <aura:attribute name="zoomLevel" type="Integer" default="" />
+    <aura:attribute name="selectedDivision" type="Account" />
+    <lightning:card title="Division Map" iconName="standard:address">
+        <lightning:map mapMarkers="{!v.mapMarkers}" zoomLevel="{!v.zoomLevel}"/>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,40 @@
+<aura:component description="BC_AccountDivisionSearchResult" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="searchResult" type="List" />
+    <aura:attribute name="totalNumberOfRecord" type="Integer" default="0" />
+    <aura:attribute name="selectedDivision" type="Account" />
+    <aura:attribute name="rowToHighlight" type="String" />
+
+    <aura:handler event="c:BC_AccountDivisionSearchResultEvent" action="{!c.handleSearchResultEvent}" />
+    <aura:handler name="highlightDivisionEvent" event="c:BC_AccountDivisionRowHighlightEvent" action="{!c.handleHighlightRowEvent}" />
+
+    <aura:registerEvent name="selectDivisionEvent" type="c:BC_AccountDivisionRowSelectedEvent" />
+
+    <lightning:spinner variant="brand" size="large" aura:id="spinner" class="slds-hide" />
+    <lightning:card title="Division Search Results" iconName="standard:display_text">
+    <div class="slds-box slds-theme--default slds-container--large">
+            <div class="slds-m-around_x-small">
+                <lightning:badge label="{!v.totalNumberOfRecord}" />
+            </div>
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer" id="resultTable">
+                <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate" title="D.no">D.no</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Division Name">Division Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Division Country">Division Country</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.searchResult}" var="acc" indexVar="index">
+                        <c:BC_AccountDivisionSearchResultRow aura:id="{!acc.Id}" searchResultItem="{!acc}" rowIndex="{!index}" isHighlighted="{!v.rowToHighlight == index}"/>
+                </aura:iteration>
+                </tbody>
+            </table>
+    </div>
+    </lightning:card>
+</aura:component>

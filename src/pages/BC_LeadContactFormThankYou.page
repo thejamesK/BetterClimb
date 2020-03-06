@@ -1,0 +1,33 @@
+<apex:page id="BC_LeadContactFormThankYou" showHeader="false">
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/bootstrap/css/bootstrap.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/fonts/font-awesome-4.7.0/css/font-awesome.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/animate/animate.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/css-hamburgers/hamburgers.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/animsition/css/animsition.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/select2/select2.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/daterangepicker/daterangepicker.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/css/util.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/css/main.css')}" />
+
+    <div class="container-contact100">
+        <div class="wrap-contact100">
+            <form class="contact100-form validate-form" action="https://betterclimb-developer-edition.eu29.force.com/">
+                <span class="contact100-form-title">
+					Thank you :)
+				</span>
+                <span class="contact100-form-title">
+                We'll contact you back.
+				</span>
+                <div class="container-contact100-form-btn">
+                    <button type="submit" class="contact100-form-btn">
+						<span>
+							<i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
+							GO BACK
+						</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</apex:page>

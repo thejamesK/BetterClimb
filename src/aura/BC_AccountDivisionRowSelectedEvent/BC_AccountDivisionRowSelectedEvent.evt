@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="BC_AccountDivisionRowSelectedEvent">
+    <aura:attribute name="selectedDivision" type="Account"/>
+</aura:event>

@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="BC_AccountDivisionSearchResultEvent">
+    <aura:attribute name="searchResult" type="List" />
+    <aura:attribute name="totalNumberOfRecord" type="Integer" />
+</aura:event>

@@ -1,0 +1,22 @@
+<aura:component description="BC_AccountDivisionSearchForm" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="divisionToSearch" type="Account"
+                    default="{ 'sobjectType' : 'Account',
+                            'Name' : '' }" />
+    <aura:attribute name="accounts" type="Account[]"/>
+    <div aria-labelledby="searchAccountForm">
+        <fieldset class="slds-box slds-theme--default slds-container--medium">
+            <form class="slds-form--stacked">
+                <lightning:input aura:id="searchAccountForm" label="Division Name"
+                                 name="divisionName"
+                                 value="{!v.divisionToSearch.Name}"
+                                 required="true"
+                                 messageWhenValueMissing="Division name is required."/>
+
+                <lightning:button label="Search"
+                                  class="slds-m-top--medium"
+                                  variant="brand"
+                                  onclick="{!c.searchDivision}"/>
+            </form>
+        </fieldset>
+    </div>
+</aura:component>

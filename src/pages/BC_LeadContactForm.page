@@ -1,0 +1,66 @@
+<apex:page id="BC_LeadContactForm" showHeader="false">
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/bootstrap/css/bootstrap.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/fonts/font-awesome-4.7.0/css/font-awesome.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/animate/animate.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/css-hamburgers/hamburgers.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/animsition/css/animsition.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/select2/select2.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/vendor/daterangepicker/daterangepicker.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/css/util.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.ContactForm, 'ContactForm/css/main.css')}" />
+
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+    <div class="container-contact100">
+
+        <div class="wrap-contact100">
+            <form class="contact100-form validate-form" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+
+                        <input type="hidden" name="oid" value="00D3X0000046EVF"/>
+                        <input type="hidden" name="retURL" value="https://betterclimb-developer-edition.eu29.force.com/apex/BC_LeadContactFormThankYou"/>
+<!--                        <input type="hidden" name="debug" value="1"/>-->
+
+				<span class="contact100-form-title">
+					Contact Us
+				</span>
+
+                <div class="wrap-input100 validate-input" data-validate="Please enter your first name">
+                    <input class="input100" type="text" id="first_name" maxlength="40" name="first_name" size="20" placeholder="First Name"/>
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Please enter your last name">
+                    <input class="input100" type="text" id="last_name" maxlength="80" name="last_name" size="20" placeholder="Last Name"/>
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Please enter your email: e@a.x">
+                    <input class="input100" type="text" id="email" maxlength="80" name="email" size="20" placeholder="E-mail"/>
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Please enter your phone">
+                    <input class="input100" type="text" id="mobile" maxlength="40" name="mobile" size="20" placeholder="Phone"/>
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Please enter your company name">
+                    <input class="input100" type="text" id="company" maxlength="40" name="company" size="20" placeholder="Company name"/>
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Please enter your city">
+                    <input class="input100" type="text" id="city" maxlength="40" name="city" size="20" placeholder="City"/>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="container-contact100-form-btn">
+                    <button type="submit" class="contact100-form-btn">
+						<span>
+							<i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
+							Send
+						</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </apex:page>

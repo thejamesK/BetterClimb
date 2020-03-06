@@ -1,0 +1,57 @@
+<aura:component description="BC_AccountDivisionSearch" implements="flexipage:availableForAllPageTypes" access="global" controller="BC_AccountDivisionSearchController">
+    <aura:attribute name="searchResult" type="List" />
+    <aura:attribute name="searchKeyword" type="String" />
+    <aura:attribute name="divisionCity" type="String" />
+    <aura:attribute name="divisionCountry" type="String" />
+    <aura:attribute name="message" type="Boolean" default="false" />
+    <aura:attribute name="totalNumberOfRecord" type="Integer" default="0" />
+    <aura:attribute name="emptyDivision" type="String" default=" "/>
+
+    <aura:registerEvent name="searchEvent" type="c:BC_AccountDivisionSearchResultEvent"/>
+    <aura:registerEvent name="clearEvent" type="c:BC_AccountDivisionClearDetailsEvent" />
+
+    <lightning:spinner variant="brand" size="large" aura:id="spinner" class="slds-hide" />
+    <lightning:card title="Division Search" iconName="standard:search">
+    <div class="slds-box slds-theme--default slds-container--large">
+        <div class="slds-m-around_medium">
+            <lightning:layout>
+                <lightning:layoutItem size="3" padding="around-small">
+                    <lightning:input value="{!v.searchKeyword}"
+                                     required="true"
+                                     aura:id="searchField"
+                                     label="Division Name"
+                                     messageWhenValueMissing="Division Name is required."/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="3" padding="around-small">
+                    <lightning:input value="{!v.divisionCity}"
+                                     aura:id="divisionCity"
+                                     label="City" />
+                </lightning:layoutItem>
+                <lightning:layoutItem size="3" padding="around-small">
+                    <lightning:input value="{!v.divisionCountry}"
+                                     aura:id="divisionCountry"
+                                     label="Country" />
+                </lightning:layoutItem>
+            </lightning:layout>
+            <lightning:layout >
+                <lightning:layoutItem size="2" padding="around-small">
+                    <lightning:button onclick="{!c.search}"
+                                      variant="brand"
+                                      label="Search"
+                                      iconName="utility:search"/>
+                </lightning:layoutItem>
+            </lightning:layout>
+
+            <aura:if isTrue="{!v.message}" >
+                <div class="slds-notify_container slds-is-relative">
+                    <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                        <div class="slds-notify__content" >
+                            <h2 class="slds-text-heading_small">No records found</h2>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+        </div>
+    </div>
+    </lightning:card>
+</aura:component>
