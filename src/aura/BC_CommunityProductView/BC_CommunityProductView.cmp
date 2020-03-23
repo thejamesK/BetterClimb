@@ -40,7 +40,7 @@
                                 {!v.productWrapper.productName}
                             </div>
                             <div class="slds-text-heading--label" style="font-size: 25px; color: red;">
-                                &euro;{!v.productWrapper.productPrice}
+                                <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="EUR" style="currency" />
                             </div>
                         </div>
                         <div style="display: flex; flex-direction: column;">

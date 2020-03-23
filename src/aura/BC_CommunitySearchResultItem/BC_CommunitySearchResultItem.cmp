@@ -20,7 +20,7 @@
             </div>
             <div style="display: flex; justify-content: space-between;">
                 <div style="display: flex; padding-top: 5px; color: red; align-items: center;" class="slds-text-heading--label" onclick="{!c.handleProductClick}">
-                    &euro;{!v.productWrapper.productPrice}
+                    <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="EUR" style="currency" />
                 </div>
                 <div style="padding-top: 5px; height: 100%">
                     <lightning:button label="Add to Cart" iconName="utility:cart" />
