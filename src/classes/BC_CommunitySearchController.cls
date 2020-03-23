@@ -1,0 +1,119 @@
+public with sharing class BC_CommunitySearchController {
+    @AuraEnabled
+    public static List<BC_ProductWrapper> searchForProducts(String searchText) {
+        String keyword = '%' + searchText + '%';
+        System.debug(keyword);
+        Map<Id, Product2> results = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Name LIKE :keyword]);
+//        List<Product2> results = [SELECT Id, Name FROM Product2 WHERE Name LIKE :keyword];
+//        List<String> ids = new List<String>();
+//        for (Product2 prod : results) {
+//            ids.add(prod.Id);
+//        }
+
+        List<PriceBookEntry> lstpbe = [SELECT Product2.Id, Product2.Name, UnitPrice, Pricebook2Id, Product2Id
+                                        FROM PriceBookEntry
+                                        WHERE Product2Id IN (SELECT Id
+                                                                FROM Product2
+                                                                WHERE Name LIKE :keyword)];
+
+        Map<Id, List<ContentDistribution>> productToContent = prepareProductsContent(results.keySet());
+        System.debug(productToContent);
+
+
+        List<BC_ProductWrapper> wrappedProductList = new List<BC_ProductWrapper>();
+//        List<ContentDistribution> contentDistributions = new List<ContentDistribution>();
+//        contentDistributions = [SELECT Id, ContentDownloadUrl, Name, RelatedRecordId FROM ContentDistribution WHERE RelatedRecordId IN :results.keySet()];
+
+        System.debug('content dist');
+
+//        for(PriceBookEntry pbe : lstpbe) {
+//            BC_ProductWrapper prodWrapp = new BC_ProductWrapper();
+//            prodWrapp = wrapProduct(pbe, prodWrapp);
+//            for(ContentDistribution cont : contentDistributions) {
+//                if(cont.ContentDownloadUrl.contains(prodWrapp.productId)) {
+//                    prodWrapp.productImageUrl = cont.ContentDownloadUrl;
+//                }
+//            }
+//            wrappedProductList.add(prodWrapp);
+//        }
+
+        for(PricebookEntry pbe : lstpbe) {
+            wrappedProductList.add(wrapProduct(pbe, productToContent.get(pbe.Product2.Id)));
+        }
+
+        System.debug('WRAPPED PRODUCT------');
+        System.debug(wrappedProductList);
+        System.debug('WRAPPED PRODUCT------');
+
+        System.debug('HERE->>>>>>');
+        System.debug(lstpbe);
+        System.debug('END->>>>>>>>');
+        System.debug('lstpbe=' + JSON.serialize(lstpbe));
+
+        return wrappedProductList;
+    }
+
+//    public static BC_ProductWrapper wrapProductImage(List<BC_ProductWrapper> wrappedProducts) {
+//        List<ContentDistribution> contentDistributions = new List<ContentDistribution>();
+//        contentDistributions = [SELECT Id, ContentDownloadUrl, Name, RelatedRecordId FROM ContentDistribution WHERE RelatedRecordId IN :wrappedProducts];
+//    }
+
+
+    public static BC_ProductWrapper wrapProduct(PricebookEntry pricebookEntry, List<ContentDistribution> contentDistributions) {
+        BC_ProductWrapper wrappedProduct = new BC_ProductWrapper();
+        wrappedProduct.pricebookId = pricebookEntry.Pricebook2Id;
+        wrappedProduct.productId = pricebookEntry.Product2Id;
+        wrappedProduct.productName = pricebookEntry.Product2.Name;
+        wrappedProduct.productPrice = (Decimal)pricebookEntry.UnitPrice;
+        wrappedProduct.productImageUrls = prepareContentUrls(contentDistributions);
+
+        return wrappedProduct;
+    }
+
+    public static Map<Id, List<ContentDistribution>> prepareProductsContent(Set<Id> productIds) {
+                Map<Id, List<ContentDistribution>> foo  = new Map<Id, List<ContentDistribution>>();
+        Map<Id, ContentDocumentLink> contentVersionIdToContentDocumentLink = new Map<Id, ContentDocumentLink>();
+
+        Map<Id,ContentDocumentLink> contentDocumentLinks = new Map<Id, ContentDocumentLink>();
+
+        for(ContentDocumentLink link : [
+                SELECT ContentDocumentId, Visibility, LinkedEntityId FROM ContentDocumentLink
+                WHERE LinkedEntityId IN :productIds]) {
+            contentDocumentLinks.put(link.ContentDocumentId, link);
+        }
+
+        Map<Id, ContentVersion> contentVersions = new Map<Id, ContentVersion>([
+                SELECT Id, ContentDocumentId FROM ContentVersion
+                WHERE ContentDocumentId IN :contentDocumentLinks.keySet()
+                AND FileType IN ('PNG', 'JPG', 'JPEG')
+        ]);
+
+        for(ContentVersion cont : contentVersions.values()) {
+            if(contentDocumentLinks.containsKey(cont.ContentDocumentId)) {
+                contentVersionIdToContentDocumentLink.put(cont.Id, contentDocumentLinks.get(cont.ContentDocumentId));
+            }
+        }
+
+        for(ContentDistribution cont : [SELECT Id, ContentDownloadUrl, ContentVersionId FROM ContentDistribution WHERE ContentVersionId IN :contentVersions.keySet()]) {
+            if(foo.containsKey(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId)) {
+                foo.get(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId).add(cont);
+            } else {
+                foo.put(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId, new List<ContentDistribution>{cont});
+            }
+        }
+
+        return foo;
+
+    }
+
+    public static List<String> prepareContentUrls(List<ContentDistribution> contentDistributions) {
+        List<String> contentUrls = new List<String>();
+        if(contentDistributions != null) {
+            for(ContentDistribution cont : contentDistributions) {
+                contentUrls.add(cont.ContentDownloadUrl);
+            }
+        }
+        return contentUrls;
+    }
+
+}
