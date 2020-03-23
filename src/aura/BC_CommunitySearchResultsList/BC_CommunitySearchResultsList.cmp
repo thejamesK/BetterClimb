@@ -1,0 +1,16 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute type="List" name="recordIds" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <div class="slds-text-heading--label" style="font-size: 30px;">
+        {!$Label.c.BC_LabelSearchResults}
+    </div>
+    <lightning:layout multipleRows="true">
+        <aura:iteration items="{!v.recordIds}" var="id">
+            <lightning:layoutItem size="4" padding="around-large">
+                <div style="display: flex; justify-content: center">
+                    <c:BC_CommunitySearchResultItem productWrapper="{!id}"/>
+                </div>
+            </lightning:layoutItem>
+        </aura:iteration>
+    </lightning:layout>
+</aura:component>
