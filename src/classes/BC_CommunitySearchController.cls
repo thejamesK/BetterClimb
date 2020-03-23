@@ -18,26 +18,26 @@ public with sharing class BC_CommunitySearchController {
         List<BC_ProductWrapper> wrappedProductList = new List<BC_ProductWrapper>();
 
         for(PricebookEntry pbe : lstpbe) {
-            wrappedProductList.add(wrapProduct(pbe, productToContent.get(pbe.Product2.Id)));
+            wrappedProductList.add(BC_ProductWrapper.BC_ProductWrapper(pbe, productToContent.get(pbe.Product2.Id)));
         }
 
         return wrappedProductList;
     }
 
 
-    public static BC_ProductWrapper wrapProduct(PricebookEntry pricebookEntry, List<ContentDistribution> contentDistributions) {
-        BC_ProductWrapper wrappedProduct = new BC_ProductWrapper();
-        wrappedProduct.pricebookId = pricebookEntry.Pricebook2Id;
-        wrappedProduct.productId = pricebookEntry.Product2Id;
-        wrappedProduct.productName = pricebookEntry.Product2.Name;
-        wrappedProduct.productPrice = (Decimal)pricebookEntry.UnitPrice;
-        wrappedProduct.productImageUrls = prepareContentUrls(contentDistributions);
-
-        return wrappedProduct;
-    }
+//    public static BC_ProductWrapper wrapProduct(PricebookEntry pricebookEntry, List<ContentDistribution> contentDistributions) {
+//        BC_ProductWrapper wrappedProduct = new BC_ProductWrapper();
+//        wrappedProduct.pricebookId = pricebookEntry.Pricebook2Id;
+//        wrappedProduct.productId = pricebookEntry.Product2Id;
+//        wrappedProduct.productName = pricebookEntry.Product2.Name;
+//        wrappedProduct.productPrice = (Decimal)pricebookEntry.UnitPrice;
+//        wrappedProduct.productImageUrls = prepareContentUrls(contentDistributions);
+//
+//        return wrappedProduct;
+//    }
 
     public static Map<Id, List<ContentDistribution>> prepareProductsContent(Set<Id> productIds) {
-                Map<Id, List<ContentDistribution>> foo  = new Map<Id, List<ContentDistribution>>();
+                Map<Id, List<ContentDistribution>> contentIdToContentDistributionList  = new Map<Id, List<ContentDistribution>>();
         Map<Id, ContentDocumentLink> contentVersionIdToContentDocumentLink = new Map<Id, ContentDocumentLink>();
 
         Map<Id,ContentDocumentLink> contentDocumentLinks = new Map<Id, ContentDocumentLink>();
@@ -61,20 +61,20 @@ public with sharing class BC_CommunitySearchController {
         }
 
         for(ContentDistribution cont : [SELECT Id, ContentDownloadUrl, ContentVersionId FROM ContentDistribution WHERE ContentVersionId IN :contentVersions.keySet()]) {
-            if(foo.containsKey(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId)) {
-                foo.get(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId).add(cont);
+            if(contentIdToContentDistributionList.containsKey(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId)) {
+                contentIdToContentDistributionList.get(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId).add(cont);
             } else {
-                foo.put(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId, new List<ContentDistribution>{cont});
+                contentIdToContentDistributionList.put(contentVersionIdToContentDocumentLink.get(cont.ContentVersionId).LinkedEntityId, new List<ContentDistribution>{cont});
             }
         }
 
-        return foo;
+        return contentIdToContentDistributionList;
 
     }
 
     public static List<String> prepareContentUrls(List<ContentDistribution> contentDistributions) {
         List<String> contentUrls = new List<String>();
-        if(contentDistributions != null) {
+        if(!contentDistributions.isEmpty()) {
             for(ContentDistribution cont : contentDistributions) {
                 contentUrls.add(cont.ContentDownloadUrl);
             }
