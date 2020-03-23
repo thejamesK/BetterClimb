@@ -1,0 +1,32 @@
+.THIS.product-tile {
+    background-color: #FFFFFF;
+    position:relative;
+    display: inline-block;
+    width: 306px;
+    height: 480px;
+    border-radius: 5px;
+}
+.THIS.product-tile.selected {
+    border: 3px solid rgb(0, 112, 210);
+}
+.THIS.product-tile:hover {
+    box-shadow: 0 0 25px 0 #A9A9A9;
+}
+.THIS.product-tile .product-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 296px;
+    max-height: 100%;
+    border: 1px solid #e6e6e6;
+}
+
+.THIS.product-tile .lower-third {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, .4);
+    padding: 6px 8px;
+}

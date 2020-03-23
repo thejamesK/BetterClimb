@@ -1,0 +1,36 @@
+<aura:component description="BC_AddProductReview">
+    <aura:attribute name="product" type="BC_ProductWrapper"/>
+    <aura:attribute name="productReview" type="ProductReview__c"/>
+    <aura:attribute name="recordError" type="String" access="private" />
+
+    <aura:registerEvent name="ProductReviewAdded" type="c:BC_ProductReviewAdded"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <force:recordData
+            aura:id="service"
+            fields="Id,Name,Comment__c,Rating__c,ProductId__c"
+            targetFields="{!v.productReview}"
+            targetError="{!v.recordError}"
+    />
+
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="12" padding="around-small">
+            <lightning:input aura:id="reviewTitle" name="title" label="Title" value="{!v.productReview.Name}" variant="label-stacked" required="true" messageWhenValueMissing="Title is required."/>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" padding="around-small">
+            <lightning:inputRichText label="Description" value="{!v.productReview.Comment__c}" placeholder="Comment" variant="label-stacked" labelVisible="true" disabledCategories="FORMAT_FONT" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" padding="around-small">
+            <c:BC_StarRating value="{!v.productReview.Rating__c}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" class="slds-align--absolute-center">
+            <lightning:button label="Submit" iconName="utility:save" onclick="{!c.onSave}" />
+        </lightning:layoutItem>
+    </lightning:layout>
+
+    <!-- Display Lightning Data Service errors -->
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+        <div class="recordError">{!v.recordError}</div>
+    </aura:if>
+</aura:component>
