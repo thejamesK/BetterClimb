@@ -4,11 +4,6 @@ public with sharing class BC_CommunitySearchController {
         String keyword = '%' + searchText + '%';
         System.debug(keyword);
         Map<Id, Product2> results = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Name LIKE :keyword]);
-//        List<Product2> results = [SELECT Id, Name FROM Product2 WHERE Name LIKE :keyword];
-//        List<String> ids = new List<String>();
-//        for (Product2 prod : results) {
-//            ids.add(prod.Id);
-//        }
 
         List<PriceBookEntry> lstpbe = [SELECT Product2.Id, Product2.Name, UnitPrice, Pricebook2Id, Product2Id
                                         FROM PriceBookEntry
@@ -21,42 +16,13 @@ public with sharing class BC_CommunitySearchController {
 
 
         List<BC_ProductWrapper> wrappedProductList = new List<BC_ProductWrapper>();
-//        List<ContentDistribution> contentDistributions = new List<ContentDistribution>();
-//        contentDistributions = [SELECT Id, ContentDownloadUrl, Name, RelatedRecordId FROM ContentDistribution WHERE RelatedRecordId IN :results.keySet()];
-
-        System.debug('content dist');
-
-//        for(PriceBookEntry pbe : lstpbe) {
-//            BC_ProductWrapper prodWrapp = new BC_ProductWrapper();
-//            prodWrapp = wrapProduct(pbe, prodWrapp);
-//            for(ContentDistribution cont : contentDistributions) {
-//                if(cont.ContentDownloadUrl.contains(prodWrapp.productId)) {
-//                    prodWrapp.productImageUrl = cont.ContentDownloadUrl;
-//                }
-//            }
-//            wrappedProductList.add(prodWrapp);
-//        }
 
         for(PricebookEntry pbe : lstpbe) {
             wrappedProductList.add(wrapProduct(pbe, productToContent.get(pbe.Product2.Id)));
         }
 
-        System.debug('WRAPPED PRODUCT------');
-        System.debug(wrappedProductList);
-        System.debug('WRAPPED PRODUCT------');
-
-        System.debug('HERE->>>>>>');
-        System.debug(lstpbe);
-        System.debug('END->>>>>>>>');
-        System.debug('lstpbe=' + JSON.serialize(lstpbe));
-
         return wrappedProductList;
     }
-
-//    public static BC_ProductWrapper wrapProductImage(List<BC_ProductWrapper> wrappedProducts) {
-//        List<ContentDistribution> contentDistributions = new List<ContentDistribution>();
-//        contentDistributions = [SELECT Id, ContentDownloadUrl, Name, RelatedRecordId FROM ContentDistribution WHERE RelatedRecordId IN :wrappedProducts];
-//    }
 
 
     public static BC_ProductWrapper wrapProduct(PricebookEntry pricebookEntry, List<ContentDistribution> contentDistributions) {

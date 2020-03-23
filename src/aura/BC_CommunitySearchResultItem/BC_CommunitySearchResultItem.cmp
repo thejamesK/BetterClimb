@@ -9,11 +9,9 @@
                       targetRecord="{!v.record}"
                       targetFields="{!v.simpleRecord}"
                       targetError="{!v.recordError}"  />
-    <!-- Display a header with details about the record -->
 
     <div class="product-tile" style="display: flex; flex-direction: column; padding: 5px;">
         <div class="product-image">
-<!--            <img src="{!$Resource.climbingShoes}" />-->
             <img src="{!v.productWrapper.productImageUrls[0]}" />
         </div>
         <div style="display: flex; justify-content: space-between; flex-direction: column; height: 100%">
@@ -30,7 +28,6 @@
             </div>
         </div>
     </div>
-    <!-- Display Lightning Data Service errors, if any -->
     <aura:if isTrue="{!not(empty(v.recordError))}">
         <div class="recordError">
             <ui:message title="Error" severity="error" closable="true">
