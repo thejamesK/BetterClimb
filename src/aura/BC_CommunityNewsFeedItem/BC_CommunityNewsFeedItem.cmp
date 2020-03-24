@@ -1,4 +1,6 @@
-<aura:component description="BC_CommunityNewsFeedItem">
+<aura:component description="BC_CommunityNewsFeedItem" controller="BC_CommunitySearchController">
+    <aura:attribute name="productId" type="String" default="01t3X00000FhWroQAF" />
+
     <div style="display: flex; justify-content: flex-start; background: center / cover no-repeat url('/sfsites/c/resource/1585076962000/tomsNews');">
         <div style="display: flex; flex-direction: column; justify-content: center; height: 465px; padding-left: 10rem;">
             <div class="slds-text-heading_medium" style="padding-bottom: 1rem; font-weight: bold; color: white">
@@ -12,7 +14,7 @@
                 STREET LV
             </div>
             <div>
-                <lightning:button label="GO TO PRODUCT" variant="brand"/>
+                <lightning:button label="GO TO PRODUCT" variant="brand" onclick="{!c.handleGoToProduct}"/>
             </div>
         </div>
     </div>
