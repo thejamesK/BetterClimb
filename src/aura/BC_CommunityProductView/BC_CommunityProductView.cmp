@@ -15,24 +15,36 @@
 
     <aura:handler name="ProductReviewAdded" event="c:BC_ProductReviewAdded" action="{!c.onProductReviewAdded}"/>
 
-    <div>
+    <div style="padding-left: 15rem; padding-right: 15rem;">
         <lightning:layout multipleRows="true">
-            <lightning:layoutItem size="4" padding="around-small">
-                <div class="product-images">
-                    <img src="{!v.productWrapper.productImageUrls[0]}" />
+            <lightning:layoutItem size="8" padding="around-small">
+                <div style="display: flex; justify-content: center">
+                    <div style="width: 350px;">
+                        <lightning:carousel disableAutoRefresh="false" disableAutoScroll="false">
+                            <aura:iteration items="{!v.productWrapper.productImageUrls}" var="image">
+                                <lightning:carouselImage src="{!image}">
+                                </lightning:carouselImage>
+                            </aura:iteration>
+                        </lightning:carousel>
+                    </div>
                 </div>
             </lightning:layoutItem>
-            <aura:if isTrue="{!greaterthan(v.productWrapper.productImageUrls.length, 1)}">
-            <lightning:layoutItem size="4" padding="around-small">
-                <div class="product-images">
-                    <img src="{!v.productWrapper.productImageUrls[1]}" />
-                </div>
-            </lightning:layoutItem>
-            </aura:if>
-            <aura:if isTrue="{!!greaterthan(v.productWrapper.productImageUrls.length, 1)}">
-                <lightning:layoutItem size="4" padding="around-small">
-                </lightning:layoutItem>
-            </aura:if>
+<!--            <lightning:layoutItem size="4" padding="around-small">-->
+<!--                <div class="product-images">-->
+<!--                    <img src="{!v.productWrapper.productImageUrls[0]}" />-->
+<!--                </div>-->
+<!--            </lightning:layoutItem>-->
+<!--            <aura:if isTrue="{!greaterthan(v.productWrapper.productImageUrls.length, 1)}">-->
+<!--            <lightning:layoutItem size="4" padding="around-small">-->
+<!--                <div class="product-images">-->
+<!--                    <img src="{!v.productWrapper.productImageUrls[1]}" />-->
+<!--                </div>-->
+<!--            </lightning:layoutItem>-->
+<!--            </aura:if>-->
+<!--            <aura:if isTrue="{!!greaterthan(v.productWrapper.productImageUrls.length, 1)}">-->
+<!--                <lightning:layoutItem size="4" padding="around-small">-->
+<!--                </lightning:layoutItem>-->
+<!--            </aura:if>-->
             <lightning:layoutItem size="4" padding="around-small">
                     <div style="display: flex; flex-direction: column; justify-content: space-evenly; height: 20rem;">
                         <div>
