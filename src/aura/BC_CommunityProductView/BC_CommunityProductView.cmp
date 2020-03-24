@@ -83,7 +83,7 @@
                                 <div style="font-size: 25px">
                                     {!$Label.c.BC_UsersRating}
                                 </div>
-                                <div style="font-size: 15px; display: inline-flex; justify-content: center; align-items: center;">
+                                <div style="font-size: 15px; display: inline-flex; justify-content: center; align-items: center; padding-bottom: 3rem;">
                                     <div>
                                         <img src="{!$Resource.star}" style="width: 30px; height: 30px"/>
                                     </div>
