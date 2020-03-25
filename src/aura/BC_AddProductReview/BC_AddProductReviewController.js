@@ -16,7 +16,6 @@
             let service = component.find("service");
             service.saveRecord(function(saveResult) {
                 if (saveResult.state === "SUCCESS" || saveResult.state === "DRAFT") {
-                    // record is saved successfully
                     let resultsToast = $A.get("e.force:showToast");
                     if (resultsToast) {
                         resultsToast.setParams({
@@ -34,10 +33,8 @@
 
                     helper.onInit(component, event, helper);
                 } else if (saveResult.state === "INCOMPLETE") {
-                    // handle the incomplete state
                     console.log("User is offline, device doesn't support drafts.");
                 } else if (saveResult.state === "ERROR") {
-                    // handle the error state
                     console.log('Problem saving review, error: ' + JSON.stringify(saveResult.error));
                 } else {
                     console.log('Unknown problem, state: ' + saveResult.state + ', error: ' + JSON.stringify(saveResult.error));

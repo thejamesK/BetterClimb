@@ -49,7 +49,7 @@
 
         <aura:if isTrue="{!v.productReviews.length==0}">
             <div class="slds-align_absolute-center">
-                No reviews available
+                {!$Label.c.BC_NoReviewsAvailable}
             </div>
         </aura:if>
     </ui:scrollerWrapper>

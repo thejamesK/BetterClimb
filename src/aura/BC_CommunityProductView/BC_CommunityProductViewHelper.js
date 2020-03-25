@@ -1,6 +1,5 @@
 ({
     loadRating : function (component, productId) {
-        console.log('in rating function');
         let action = component.get('c.getRating');
         action.setParams({
             'productId': productId
@@ -9,11 +8,7 @@
             let state = response.getState();
             if (state === 'SUCCESS') {
                 let storeResponse = response.getReturnValue();
-                console.log('Product RATING');
-                console.log(storeResponse);
                 component.set('v.productRating', storeResponse);
-                // console.log(JSON.stringify(storeResponse));
-                // this.fireSelectMovieEvent(component);
             } else if (state === 'INCOMPLETE') {
                 alert('Response is Incompleted');
             } else if (state === "ERROR") {

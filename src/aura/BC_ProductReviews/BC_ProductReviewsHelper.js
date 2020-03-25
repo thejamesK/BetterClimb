@@ -13,11 +13,9 @@
                     let reviews = response.getReturnValue();
                     component.set("v.productReviews", reviews);
                     break;
-
                 case "INCOMPLETE":
                     console.log('Incomplete');
                     break;
-
                 case "ERROR":
                     console.log(response.getError());
                     break;
