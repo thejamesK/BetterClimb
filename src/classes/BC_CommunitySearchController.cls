@@ -5,7 +5,7 @@ public with sharing class BC_CommunitySearchController {
         System.debug(keyword);
         Map<Id, Product2> results = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Name LIKE :keyword]);
 
-        List<PriceBookEntry> lstpbe = [SELECT Product2.Id, Product2.Name, UnitPrice, Pricebook2Id, Product2Id
+        List<PriceBookEntry> lstpbe = [SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice, Pricebook2Id, Product2Id
                                         FROM PriceBookEntry
                                         WHERE Product2Id IN (SELECT Id
                                                                 FROM Product2
@@ -24,17 +24,22 @@ public with sharing class BC_CommunitySearchController {
         return wrappedProductList;
     }
 
+    @AuraEnabled
+    public static BC_ProductWrapper goToProduct(String productId) {
+        Map<Id, Product2> results = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Id = :productId]);
+        List<PriceBookEntry> lstpbe = [SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice, Pricebook2Id, Product2Id
+                                        FROM PriceBookEntry
+                                        WHERE Product2Id IN (SELECT Id
+                                        FROM Product2
+                                        WHERE Id = :productId)];
+        Map<Id, List<ContentDistribution>> productToContent = prepareProductsContent(results.keySet());
+        List<BC_ProductWrapper> wrappedProductList = new List<BC_ProductWrapper>();
+        for(PricebookEntry pbe : lstpbe) {
+            wrappedProductList.add(BC_ProductWrapper.BC_ProductWrapper(pbe, productToContent.get(pbe.Product2.Id)));
+        }
 
-//    public static BC_ProductWrapper wrapProduct(PricebookEntry pricebookEntry, List<ContentDistribution> contentDistributions) {
-//        BC_ProductWrapper wrappedProduct = new BC_ProductWrapper();
-//        wrappedProduct.pricebookId = pricebookEntry.Pricebook2Id;
-//        wrappedProduct.productId = pricebookEntry.Product2Id;
-//        wrappedProduct.productName = pricebookEntry.Product2.Name;
-//        wrappedProduct.productPrice = (Decimal)pricebookEntry.UnitPrice;
-//        wrappedProduct.productImageUrls = prepareContentUrls(contentDistributions);
-//
-//        return wrappedProduct;
-//    }
+        return wrappedProductList[0];
+    }
 
     public static Map<Id, List<ContentDistribution>> prepareProductsContent(Set<Id> productIds) {
                 Map<Id, List<ContentDistribution>> contentIdToContentDistributionList  = new Map<Id, List<ContentDistribution>>();
