@@ -4,14 +4,14 @@
     <div style="display: flex; justify-content: flex-start; background: center / cover no-repeat url('/sfsites/c/resource/1585076962000/tomsNews');">
         <div style="display: flex; flex-direction: column; justify-content: center; height: 465px; padding-left: 10rem;">
             <div class="slds-text-heading_medium" style="padding-bottom: 1rem; font-weight: bold; color: white">
-                Fresh collaboration between TOMS x So iLL
+                {!$Label.c.BC_FirstNewsDescription}
             </div>
             <div class="slds-text-heading_large" style="font-weight: bolder; font-size: 3rem; color: white">
-                TOMS
+                {!$Label.c.BC_FirstNewsProducent}
             </div>
             <div class="slds-text-heading_large" style="font-weight: bolder; font-size: 5rem; padding-bottom: 1rem; color: white">
-                DYNASTY GREEN <br/>
-                STREET LV
+                {!$Label.c.BC_FirstNewsProductNamePart} <br/>
+                {!$Label.c.BC_FirstNewsProductNamePartTwo}
             </div>
             <div>
                 <lightning:button label="GO TO PRODUCT" variant="brand" onclick="{!c.handleGoToProduct}"/>
