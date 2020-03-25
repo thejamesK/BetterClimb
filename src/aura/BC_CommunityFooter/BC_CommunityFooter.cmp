@@ -1,0 +1,20 @@
+<aura:component description="BC_CommunityFooter" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <div style="background: #373737; height: 10rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+            <div style="display: flex; margin-left: 20rem;">
+                <div style="width: 40px; height: 40px; margin-right: 2rem; margin-top: 2rem;">
+                    <a href="https://www.facebook.com/sklep8apl/"><img src="{!$Resource.facebook}"/></a>
+                </div>
+                <div style="width: 40px; height: 40px; margin-right: 2rem; margin-top: 2rem;">
+                    <a href="https://www.youtube.com/sklep8apl/"><img src="{!$Resource.youtube}"/></a>
+                </div>
+                <div style="width: 40px; height: 40px; margin-top: 2rem;">
+                    <a href="https://www.instagram.com/8apl/"><img src="{!$Resource.instagram}"/></a>
+                </div>
+            </div>
+            <div style="width: 20rem; margin-top: 1rem; margin-right: 15rem;">
+                <img src="{!$Resource.logo2}" />
+            </div>
+        </div>
+    </div>
+</aura:component>
