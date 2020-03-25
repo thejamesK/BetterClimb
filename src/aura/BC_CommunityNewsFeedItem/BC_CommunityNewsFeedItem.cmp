@@ -14,7 +14,7 @@
                 {!$Label.c.BC_FirstNewsProductNamePartTwo}
             </div>
             <div>
-                <lightning:button label="GO TO PRODUCT" variant="brand" onclick="{!c.handleGoToProduct}"/>
+                <lightning:button label="{!$Label.c.BC_GoToProduct}" variant="brand" onclick="{!c.handleGoToProduct}"/>
             </div>
         </div>
     </div>
