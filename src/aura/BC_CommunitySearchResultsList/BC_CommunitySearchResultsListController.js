@@ -1,11 +1,9 @@
 ({
     init : function (component, event, helper) {
         console.log(sessionStorage.getItem('BC_CommunitySearchBar--recordIds'));
-        var idsJson = sessionStorage.getItem('BC_CommunitySearchBar--recordIds');
-        console.log('ids->>>>>' + idsJson);
+        let idsJson = sessionStorage.getItem('BC_CommunitySearchBar--recordIds');
         if(!$A.util.isUndefinedOrNull(idsJson)) {
-            var ids = JSON.parse(idsJson);
-            console.log('ids inside ->>>>>> ' + ids);
+            let ids = JSON.parse(idsJson);
             component.set('v.recordIds', ids);
             sessionStorage.removeItem('BC_CommunitySearchBar--recordIds');
         }
