@@ -1,0 +1,40 @@
+<aura:component implements="forceCommunity:themeLayout" description="BC_HeaderCustomTheme">
+    <aura:attribute name="search" type="Aura.Component[]" />
+    <aura:attribute name="profileMenu" type="Aura.Component[]" />
+    <aura:attribute name="header" type="Aura.Component[]" />
+
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="12">
+            <div style="background: center / cover no-repeat url('/sfsites/c/resource/1585223179000/Banner'); border: #373737 3px solid"><!-- class to header container -->
+<!--                <img src="{!$Resource.Banner}" style="background: center / cover no-repeat url('/sfsites/c/resource/1585219539000/Banner');"/> &lt;!&ndash; class navbar background&ndash;&gt;-->
+                <lightning:layout horizontalAlign="center" verticalAlign="center" multipleRows="true"><!-- navbar class-->
+                    <lightning:layoutItem size="2" padding="around-small">
+                        <a onclick="{!c.goToHomepage}">
+                            <img src="{!$Resource.logo2}"/>
+                        </a>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="4">
+                        {!v.search}
+                    </lightning:layoutItem>
+                    <lightning:layoutItem>
+                        <div>
+                            <!--basket component-->
+                            <lightning:icon iconName="utility:cart" variant="inverse" />
+<!--                            {!v.profileMenu}-->
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="2">
+                        <div>
+                            <!--basket component-->
+<!--                            <lightning:icon iconName="utility:cart" variant="inverse" />-->
+                            {!v.profileMenu}
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+            {!v.body}
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>
