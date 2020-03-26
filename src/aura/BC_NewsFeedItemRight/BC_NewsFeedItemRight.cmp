@@ -1,8 +1,10 @@
 <aura:component description="BC_NewsFeedItemRight" controller="BC_CommunitySearchController">
-    <aura:attribute name="productId" type="String" default="01t3X00000FhStOQAV" />
+    <aura:attribute name="productId" type="String" default="01t3X00000FhSSxQAN" />
+    <aura:attribute name="lasportivaurl" type="String" default="/sfsites/c/resource/1585225147000/toms2" />
 
-    <div style="display: flex; justify-content: flex-end; background: center / cover no-repeat url('/sfsites/c/resource/1585055768000/lasportivaNews');">
-        <div style="display: flex; flex-direction: column; justify-content: center; height: 465px; padding-right: 10rem;">
+<!--    <div style="display: flex; justify-content: flex-end; background: center / cover no-repeat url('/sfsites/c/resource/1585055768000/lasportivaNews');">-->
+        <div style="display: flex; justify-content: flex-end; background: center / cover no-repeat url('/sfsites/c/resource/1585226435000/scarpadragonews');">
+        <div style="display: flex; flex-direction: column; justify-content: center; height: 600px; padding-right: 10rem;">
             <div class="slds-text-heading_medium" style="padding-bottom: 1rem; font-weight: bold; color: white">
                 {!$Label.c.BC_SecondNewsDescription}
             </div>
