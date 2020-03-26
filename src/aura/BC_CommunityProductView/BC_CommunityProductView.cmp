@@ -99,7 +99,7 @@
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!!empty(v.productWrapper)}">
-                        <div>
+                        <div style="padding-bottom: 2rem;">
                             <lightning:tabset aura:id="tabs" class="slds-card">
                                 <lightning:tab id="productReviewTab" label="Reviews">
                                     <c:BC_ProductReviews aura:id="reviews" product="{!v.productWrapper}"/>
