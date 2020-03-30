@@ -23,7 +23,7 @@
                     <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="EUR" style="currency" />
                 </div>
                 <div style="padding-top: 5px; height: 100%">
-                    <lightning:button label="Add to Cart" iconName="utility:cart" />
+                    <lightning:button label="{!$Label.c.BC_AddToCart}" iconName="utility:cart" />
                 </div>
             </div>
         </div>
