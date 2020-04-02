@@ -1,7 +1,7 @@
 public with sharing class BC_ProductController {
 
     @AuraEnabled
-    public static void getPhotosUrl(String productId) {
+    public static List<ContentDistribution> getPhotos(String productId) {
         List<ContentDocumentLink> contentDocumentLinks = [SELECT LinkedEntityId, ContentDocumentId
                                                             FROM ContentDocumentLink
                                                             WHERE LinkedEntityId = :productId];
@@ -11,19 +11,24 @@ public with sharing class BC_ProductController {
         for(ContentDocumentLink cdl : contentDocumentLinks) {
             contentDocumentsId.add(cdl.ContentDocumentId);
         }
-        System.debug(contentDocumentsId);
-
 
         List<ContentDistribution> contentDistributions = [SELECT Id, ContentDownloadUrl, Name, RelatedRecordId, ContentVersionId, ContentDocumentId
                                                             FROM ContentDistribution
                                                             WHERE ContentDocumentId IN :contentDocumentsId];
 
-        System.debug(contentDistributions);
-        List<String> photoUrls = new List<String>();
-        for (ContentDistribution cont : contentDistributions) {
-            photoUrls.add(cont.ContentDownloadUrl);
-        }
-        System.debug(photoUrls);
+        return contentDistributions;
     }
 
+    @AuraEnabled
+    public static void setMainPhoto(String productId, String photoUrl) {
+        Product2 currentProduct = [SELECT Id, MainPhotoUrl__c FROM Product2 WHERE Id = :productId];
+        currentProduct.mainPhotoUrl__c = photoUrl;
+        upsert currentProduct;
+    }
+
+    @AuraEnabled
+    public static Product2 getProduct(String productId) {
+        Product2 product = [SELECT Id, MainPhotoUrl__c FROM Product2 WHERE Id = :productId];
+        return product;
+    }
 }

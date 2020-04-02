@@ -1,0 +1,37 @@
+<aura:component description="BC_ShippingDetails" controller="BC_ShippingDetailsController">
+    <aura:attribute name="userDetails" type="User" />
+    <aura:attribute name="productList" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler event="c:BC_ShippingDetailsEvt" action="{!c.handleShippingDetailsEvt}" />
+
+    <aura:registerEvent name="cartEvent" type="c:BC_CartEvent" />
+
+    <div id="shippingDetails" style="display: flex; flex-direction: column;">
+        <lightning:layout multipleRows="true" horizontalAlign="center">
+            <lightning:layoutItem size="8">
+                <div id="shippingName" style="padding-top: 1rem;">
+                    <lightning:input label="{!$Label.c.BC_Name}" value="{!v.userDetails.Name}" />
+                </div>
+                <div id="shippingPhone">
+                    <ui:inputPhone label="{!$Label.c.BC_Phone}" value="{!v.userDetails.Phone}" />
+                </div>
+                <div id="shippingStreet">
+                    <lightning:input label="{!$Label.c.BC_ShippingStreet}" value="{!v.userDetails.Address.street}" />
+                </div>
+                <div id="shippingCity">
+                    <lightning:input label="{!$Label.c.BC_ShippingCity}" value="{!v.userDetails.Address.city}" />
+                </div>
+                <div id="shippingState">
+                    <lightning:input label="{!$Label.c.BC_ShippingState}" value="{!v.userDetails.Address.state}" />
+                </div>
+                <div id="shippingZip">
+                    <lightning:input label="{!$Label.c.BC_ShippingZip}" value="{!v.userDetails.Address.postalCode}" />
+                </div>
+                <div id="shippingCountry">
+                    <lightning:input label="{!$Label.c.BC_ShippingCountry}" value="{!v.userDetails.Address.country}" />
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>
