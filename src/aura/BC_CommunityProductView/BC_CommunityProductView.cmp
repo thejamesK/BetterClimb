@@ -29,7 +29,7 @@
                                 {!v.productWrapper.productName}
                             </div>
                             <div class="slds-text-heading--label" style="font-size: 25px; color: red;">
-                                <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="EUR" style="currency" />
+                                <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
                             </div>
                         </div>
                         <div style="display: flex; flex-direction: column;">
@@ -38,10 +38,10 @@
                             </div>
                             <div style="display: flex;">
                                 <div style="width: 5rem; padding-right: 1rem;">
-                                    <ui:inputNumber placeholder="1"/>
+                                    <ui:inputNumber placeholder="1" value="{!v.productWrapper.productQuantity}"/>
                                 </div>
                                 <div>
-                                    <lightning:button label="Add to Cart" iconName="utility:cart" variant="brand" />
+                                    <lightning:button label="{!$Label.c.BC_AddToCart}" iconName="utility:cart" variant="brand" onclick="{!c.handleAddToBasket}"/>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                                 {!v.productRating.vote_average}
                                         </div>
                                         <div style="padding-left: 5px; font-size: 13px; color: darkgrey">
-                                            on&nbsp;{!v.productRating.vote_count} votes
+                                            {!format($Label.c.BC_OnVotes, v.productRating.vote_count)}
                                         </div>
                                     </div>
                                 </div>
@@ -99,12 +99,12 @@
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!!empty(v.productWrapper)}">
-                        <div>
+                        <div style="padding-bottom: 2rem;">
                             <lightning:tabset aura:id="tabs" class="slds-card">
-                                <lightning:tab id="productReviewTab" label="Reviews">
+                                <lightning:tab id="productReviewTab" label="{!$Label.c.BC_Reviews}">
                                     <c:BC_ProductReviews aura:id="reviews" product="{!v.productWrapper}"/>
                                 </lightning:tab>
-                                <lightning:tab label="Add Review">
+                                <lightning:tab label="{!$Label.c.BC_AddReview}">
                                     <c:BC_AddProductReview product="{!v.productWrapper}" />
                                 </lightning:tab>
                             </lightning:tabset>

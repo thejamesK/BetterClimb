@@ -1,16 +1,14 @@
 ({
-    handleClick : function (component, event, helper) {
-        let searchText = component.get('v.searchText');
-        let action = component.get('c.searchForProducts');
-        action.setParams({searchText: searchText});
+    loadRating : function (component, productId) {
+        let action = component.get('c.getRating');
+        action.setParams({
+            'productId': productId
+        });
         action.setCallback(this, function (response) {
             let state = response.getState();
-            if(state === "SUCCESS") {
-                let ids = response.getReturnValue();
-                sessionStorage.setItem('BC_CommunitySearchBar--recordIds', JSON.stringify(ids));
-                let navEvt = $A.get('e.force:navigateToURL');
-                navEvt.setParams({url: '/custom-search-results'});
-                navEvt.fire();
+            if (state === 'SUCCESS') {
+                let storeResponse = response.getReturnValue();
+                component.set('v.productRating', storeResponse);
             } else {
                 let resultsToast = $A.get("e.force:showToast");
                 if (resultsToast) {
