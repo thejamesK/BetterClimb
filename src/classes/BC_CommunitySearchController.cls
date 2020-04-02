@@ -2,18 +2,15 @@ public with sharing class BC_CommunitySearchController {
     @AuraEnabled
     public static List<BC_ProductWrapper> searchForProducts(String searchText) {
         String keyword = '%' + searchText + '%';
-        System.debug(keyword);
         Map<Id, Product2> results = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Name LIKE :keyword]);
 
-        List<PriceBookEntry> lstpbe = [SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice, Pricebook2Id, Product2Id
+        List<PriceBookEntry> lstpbe = [SELECT Id, Product2.Id, Product2.Name, Product2.Description, UnitPrice, Pricebook2Id, Product2Id
                                         FROM PriceBookEntry
                                         WHERE Product2Id IN (SELECT Id
                                                                 FROM Product2
                                                                 WHERE Name LIKE :keyword)];
 
         Map<Id, List<ContentDistribution>> productToContent = prepareProductsContent(results.keySet());
-        System.debug(productToContent);
-
 
         List<BC_ProductWrapper> wrappedProductList = new List<BC_ProductWrapper>();
 
@@ -85,6 +82,28 @@ public with sharing class BC_CommunitySearchController {
             }
         }
         return contentUrls;
+    }
+
+    @AuraEnabled
+    public static void deleteItemFromBasket(String productId) {
+        List<BC_ProductWrapper> productsInBasket = (List<BC_ProductWrapper>)Cache.Session.get('local.betterclimb.productList');
+        for(Integer i = 0; i < productsInBasket.size(); i++) {
+            if(productsInBasket.get(i).productId == productId) {
+                productsInBasket.remove(i);
+                Cache.Session.put('local.betterclimb.productList', productsInBasket);
+            }
+        }
+    }
+
+    @AuraEnabled
+    public static void updateQuantity(String productId, Integer quantity) {
+        List<BC_ProductWrapper> productsInBasket = (List<BC_ProductWrapper>)Cache.Session.get('local.betterclimb.productList');
+        for(Integer i = 0; i < productsInBasket.size(); i++) {
+            if(productsInBasket.get(i).productId == productId) {
+                productsInBasket.get(i).productQuantity = quantity;
+                Cache.Session.put('local.betterclimb.productList', productsInBasket);
+            }
+        }
     }
 
 }

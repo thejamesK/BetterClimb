@@ -10,13 +10,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-<<<<<<< Updated upstream
-=======
-        <apexClass>BC_CommunityProductItemController</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
->>>>>>> Stashed changes
         <apexClass>BC_CommunitySearchController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
