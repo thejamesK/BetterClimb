@@ -16,16 +16,16 @@
 
     <lightning:layout multipleRows="true">
         <lightning:layoutItem size="12" padding="around-small">
-            <lightning:input aura:id="reviewTitle" name="title" label="Title" value="{!v.productReview.Name}" variant="label-stacked" required="true" messageWhenValueMissing="Title is required."/>
+            <lightning:input aura:id="reviewTitle" name="title" label="{!$Label.c.BC_Title}" value="{!v.productReview.Name}" variant="label-stacked" required="true" messageWhenValueMissing="Title is required."/>
         </lightning:layoutItem>
         <lightning:layoutItem size="12" padding="around-small">
-            <lightning:inputRichText label="Description" value="{!v.productReview.Comment__c}" placeholder="Comment" variant="label-stacked" labelVisible="true" disabledCategories="FORMAT_FONT" />
+            <lightning:inputRichText label="{!$Label.c.BC_Description}" value="{!v.productReview.Comment__c}" placeholder="Comment" variant="label-stacked" labelVisible="true" disabledCategories="FORMAT_FONT" />
         </lightning:layoutItem>
         <lightning:layoutItem size="12" padding="around-small">
             <c:BC_StarRating value="{!v.productReview.Rating__c}"/>
         </lightning:layoutItem>
         <lightning:layoutItem size="12" class="slds-align--absolute-center">
-            <lightning:button label="Submit" iconName="utility:save" onclick="{!c.onSave}" />
+            <lightning:button label="{!$Label.c.BC_Submit}" iconName="utility:save" onclick="{!c.onSave}" />
         </lightning:layoutItem>
     </lightning:layout>
 

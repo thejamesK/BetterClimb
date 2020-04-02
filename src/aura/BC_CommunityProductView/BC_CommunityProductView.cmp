@@ -29,7 +29,7 @@
                                 {!v.productWrapper.productName}
                             </div>
                             <div class="slds-text-heading--label" style="font-size: 25px; color: red;">
-                                <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="EUR" style="currency" />
+                                <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
                             </div>
                         </div>
                         <div style="display: flex; flex-direction: column;">
@@ -38,10 +38,10 @@
                             </div>
                             <div style="display: flex;">
                                 <div style="width: 5rem; padding-right: 1rem;">
-                                    <ui:inputNumber placeholder="1"/>
+                                    <ui:inputNumber placeholder="1" value="{!v.productWrapper.productQuantity}"/>
                                 </div>
                                 <div>
-                                    <lightning:button label="{!$Label.c.BC_AddToCart}" iconName="utility:cart" variant="brand" />
+                                    <lightning:button label="{!$Label.c.BC_AddToCart}" iconName="utility:cart" variant="brand" onclick="{!c.handleAddToBasket}"/>
                                 </div>
                             </div>
                         </div>

@@ -32,12 +32,16 @@
                     productReviewAdded.fire();
 
                     helper.onInit(component, event, helper);
-                } else if (saveResult.state === "INCOMPLETE") {
-                    console.log("User is offline, device doesn't support drafts.");
-                } else if (saveResult.state === "ERROR") {
-                    console.log('Problem saving review, error: ' + JSON.stringify(saveResult.error));
                 } else {
-                    console.log('Unknown problem, state: ' + saveResult.state + ', error: ' + JSON.stringify(saveResult.error));
+                    let resultsToast = $A.get("e.force:showToast");
+                    if (resultsToast) {
+                        resultsToast.setParams({
+                            "title": "Error",
+                            "type" : "error",
+                            "message": $A.get('$Label.c.BC_ErrorToastMessage')
+                        });
+                        resultsToast.fire();
+                    }
                 }
             });
         }

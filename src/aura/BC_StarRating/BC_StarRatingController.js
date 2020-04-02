@@ -9,7 +9,6 @@
         }
         component.ratingObj = rating(domEl, currentRating, maxRating, callback, readOnly);
 
-        console.log(component.ratingObj);
     },
 
     onValueChange: function(component, event, helper) {

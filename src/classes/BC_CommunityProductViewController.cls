@@ -14,7 +14,12 @@ public with sharing class BC_CommunityProductViewController {
             productRatingAndVotes.vote_count = productReviews.size();
             productRatingAndVotes.vote_average = ratingSum / productRatingAndVotes.vote_count;
         }
-
+        
         return productRatingAndVotes;
+    }
+    
+    @AuraEnabled
+    public static Boolean addItemFromView(String product) {
+        return BC_BasketController.addItemToBasketCache(product);
     }
 }

@@ -8,17 +8,19 @@
 
         action.setCallback(this, function(response) {
             let state = response.getState();
-            switch(state) {
-                case "SUCCESS":
-                    let reviews = response.getReturnValue();
-                    component.set("v.productReviews", reviews);
-                    break;
-                case "INCOMPLETE":
-                    console.log('Incomplete');
-                    break;
-                case "ERROR":
-                    console.log(response.getError());
-                    break;
+            if(state === "SUCCESS") {
+                let reviews = response.getReturnValue();
+                component.set("v.productReviews", reviews);
+            } else {
+                let resultsToast = $A.get("e.force:showToast");
+                if (resultsToast) {
+                    resultsToast.setParams({
+                        "title": "Error",
+                        "type" : "error",
+                        "message": $A.get('$Label.c.BC_ErrorToastMessage')
+                    });
+                    resultsToast.fire();
+                }
             }
         });
         $A.enqueueAction(action);

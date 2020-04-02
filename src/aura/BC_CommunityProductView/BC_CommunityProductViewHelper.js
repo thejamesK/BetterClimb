@@ -9,16 +9,15 @@
             if (state === 'SUCCESS') {
                 let storeResponse = response.getReturnValue();
                 component.set('v.productRating', storeResponse);
-            } else if (state === 'INCOMPLETE') {
-                alert('Response is Incompleted');
-            } else if (state === "ERROR") {
-                let errors = response.getError();
-                if (errors) {
-                    if (errors[0] && errors[0].message) {
-                        alert("Error message: " + errors[0].message);
-                    }
-                } else {
-                    alert("Unknown error");
+            } else {
+                let resultsToast = $A.get("e.force:showToast");
+                if (resultsToast) {
+                    resultsToast.setParams({
+                        "title": "Error",
+                        "type" : "error",
+                        "message": $A.get('$Label.c.BC_ErrorToastMessage')
+                    });
+                    resultsToast.fire();
                 }
             }
         });
