@@ -1,4 +1,4 @@
-<aura:component implements="force:hasRecordId" access="global">
+<aura:component implements="force:hasRecordId" access="global" controller="BC_BasketController">
     <aura:attribute name="record" type="Object"/>
     <aura:attribute name="simpleRecord" type="Object"/>
     <aura:attribute name="recordError" type="String"/>
@@ -20,10 +20,10 @@
             </div>
             <div style="display: flex; justify-content: space-between;">
                 <div style="display: flex; padding-top: 5px; color: red; align-items: center;" class="slds-text-heading--label" onclick="{!c.handleProductClick}">
-                    <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="EUR" style="currency" />
+                    <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
                 </div>
                 <div style="padding-top: 5px; height: 100%">
-                    <lightning:button label="{!$Label.c.BC_AddToCart}" iconName="utility:cart" />
+                    <lightning:button label="{!$Label.c.BC_AddToCart}" iconName="utility:cart" onclick="{!c.handleAddToCart}"/>
                 </div>
             </div>
         </div>

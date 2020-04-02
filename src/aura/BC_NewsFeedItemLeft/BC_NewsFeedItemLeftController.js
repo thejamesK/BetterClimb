@@ -7,20 +7,22 @@
         });
         action.setCallback(this, function (response) {
             let state = response.getState();
-            switch(state) {
-                case "SUCCESS":
-                    let ids = response.getReturnValue();
-                    sessionStorage.setItem('BC_CommunityProductView--product', JSON.stringify(ids));
-                    let navEvt = $A.get('e.force:navigateToURL');
-                    navEvt.setParams({url: '/product-view'});
-                    navEvt.fire();
-                    break;
-                case "INCOMPLETE":
-                    console.log('Incomplete');
-                    break;
-                case "ERROR":
-                    console.log(response.getError());
-                    break;
+            if (state === 'SUCCESS') {
+                let ids = response.getReturnValue();
+                sessionStorage.setItem('BC_CommunityProductView--product', JSON.stringify(ids));
+                let navEvt = $A.get('e.force:navigateToURL');
+                navEvt.setParams({url: '/product-view'});
+                navEvt.fire();
+            } else {
+                let resultsToast = $A.get("e.force:showToast");
+                if (resultsToast) {
+                    resultsToast.setParams({
+                        "title": "Error",
+                        "type" : "error",
+                        "message": $A.get('$Label.c.BC_ErrorToastMessage')
+                    });
+                    resultsToast.fire();
+                }
             }
         });
         $A.enqueueAction(action);
