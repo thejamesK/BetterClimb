@@ -46,7 +46,7 @@
                     resultsToast.setParams({
                         "title": "Error",
                         "type" : "error",
-                        "message": "Sorry we were unable to make this request, please try again"
+                        "message": $A.get('$Label.c.BC_ErrorToastMessage')
                     });
                     resultsToast.fire();
                 }
