@@ -19,13 +19,11 @@
                     let resultsToast = $A.get("e.force:showToast");
                     if (resultsToast) {
                         resultsToast.setParams({
-                            "title": "Saved",
+                            "title": $A.get('$Label.c.BC_Saved'),
                             "type" : "success",
-                            "message": "The review was added."
+                            "message": $A.get('$Label.c.BC_Review')
                         });
                         resultsToast.fire();
-                    } else {
-                        alert("The record was saved.");
                     }
 
                     let productReviewAdded = component.getEvent("ProductReviewAdded");
@@ -36,7 +34,7 @@
                     let resultsToast = $A.get("e.force:showToast");
                     if (resultsToast) {
                         resultsToast.setParams({
-                            "title": "Error",
+                            "title": $A.get('$Label.c.BC_ToastError'),
                             "type" : "error",
                             "message": $A.get('$Label.c.BC_ErrorToastMessage')
                         });

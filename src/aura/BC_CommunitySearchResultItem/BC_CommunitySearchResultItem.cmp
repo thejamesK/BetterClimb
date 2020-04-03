@@ -12,7 +12,12 @@
 
     <div class="product-tile" style="display: flex; flex-direction: column; padding: 5px; justify-content: space-between;">
         <div class="product-image" onclick="{!c.handleProductClick}" style="display: flex; flex-direction: column; justify-content: center;">
-            <img src="{!v.productWrapper.productImageUrls[0]}" />
+            <aura:if isTrue="{!v.productWrapper.productMainPhotoUrl != null}">
+                <img src="{!v.productWrapper.productMainPhotoUrl}" />
+            </aura:if>
+            <aura:if isTrue="{!v.productWrapper.productMainPhotoUrl == null}">
+                <img src="{!$Resource.climbingShoes}" />
+            </aura:if>
         </div>
         <div style="display: flex; justify-content: space-between; flex-direction: column; height: 65px;">
             <div class="slds-text-heading--label" style="padding-top: 5px; color: black;" onclick="{!c.handleProductClick}">
@@ -30,7 +35,7 @@
     </div>
     <aura:if isTrue="{!not(empty(v.recordError))}">
         <div class="recordError">
-            <ui:message title="Error" severity="error" closable="true">
+            <ui:message title="{!$Label.c.BC_ToastError}" severity="error" closable="true">
                     {!v.recordError}
             </ui:message>
         </div>

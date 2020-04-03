@@ -7,6 +7,7 @@ public with sharing class BC_ProductWrapper {
     @AuraEnabled public String productDescription;
     @AuraEnabled public Integer productQuantity;
     @AuraEnabled public String productPricebookEntryId;
+    @AuraEnabled public String productMainPhotoUrl;
     
     @AuraEnabled
     public static BC_ProductWrapper BC_ProductWrapper(PricebookEntry pricebookEntry, List<ContentDistribution> contentDistributions) {
@@ -19,6 +20,7 @@ public with sharing class BC_ProductWrapper {
         wrappedProduct.productImageUrls = BC_CommunitySearchController.prepareContentUrls(contentDistributions);
         wrappedProduct.productQuantity = 1;
         wrappedProduct.productPricebookEntryId = pricebookEntry.Id;
+        wrappedProduct.productMainPhotoUrl = pricebookEntry.Product2.MainPhotoUrl__c;
         
         return wrappedProduct;
     }
