@@ -1,10 +1,11 @@
 <aura:component description="BC_CommunitySearchBar" implements="forceCommunity:searchInterface" controller="BC_CommunitySearchController">
     <aura:attribute name="searchText" type="String" default="" />
+
     <div class="slds-form-element slds-lookup" data-select="single">
         <div class="slds-form-element__control">
             <div class="slds-input-has-icon slds-input-has-icon--right">
-                <lightning:buttonIcon iconName="utility:search" variant="bare" onclick="{!c.handleClick}" alternativeText="Search" class="slds-input__icon"/>
-                <ui:inputText value="{!v.searchText}" class="slds-lookup__search-input slds-input" placeholder="Search climbing equipment" />
+                <lightning:buttonIcon iconName="utility:search" variant="bare" onclick="{!c.handleClick}" alternativeText="{!$Label.c.BC_Search}" class="slds-input__icon"/>
+                <ui:inputText value="{!v.searchText}" class="slds-lookup__search-input slds-input" placeholder="{!$Label.c.BC_SearchPlaceholder}" />
             </div>
         </div>
     </div>

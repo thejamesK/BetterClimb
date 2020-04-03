@@ -20,19 +20,13 @@
         helper.loadRating(component, productId);
     },
     handleAddToBasket : function (component, event, helper) {
-        console.log('PRODUCT QUANTITY ' + component.get('v.productWrapper.productQuantity'));
-        console.log('PRODUCT WRAPPER ' + component.get('v.productWrapper'));
         let product = JSON.stringify(component.get('v.productWrapper'));
-        console.log(product);
-        console.log(JSON.stringify(product));
 
         let action = component.get('c.addItemFromView');
         action.setParams({product: product});
         action.setCallback(this, function (response) {
             let state = response.getState();
             if(state === "SUCCESS") {
-                console.log('ADDED TO CART');
-                console.log('RETURNED VALUE ' + response.getReturnValue());
                 if(response.getReturnValue() === true) {
                     let resultsToast = $A.get("e.force:showToast");
                     if (resultsToast) {
@@ -63,7 +57,7 @@
                     resultsToast.setParams({
                         "title": "Error",
                         "type" : "error",
-                        "message": "Sorry we were unable to make this request, please try again"
+                        "message": $A.get('$Label.c.BC_ErrorToastMessage')
                     });
                     resultsToast.fire();
                 }

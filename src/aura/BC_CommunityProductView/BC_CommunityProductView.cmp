@@ -12,7 +12,7 @@
         <lightning:layout multipleRows="true">
             <lightning:layoutItem size="8" padding="around-small">
                 <div style="display: flex; justify-content: center">
-                    <div style="width: 350px;">
+                    <div style="width: 350px; object-fit: contain;">
                         <lightning:carousel disableAutoRefresh="false" disableAutoScroll="false">
                             <aura:iteration items="{!v.productWrapper.productImageUrls}" var="image">
                                 <lightning:carouselImage src="{!image}">
