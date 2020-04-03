@@ -17,7 +17,7 @@
                 let resultsToast = $A.get("e.force:showToast");
                 if (resultsToast) {
                     resultsToast.setParams({
-                        "title": "Error",
+                        "title": $A.get('$Label.c.BC_ToastError'),
                         "type" : "error",
                         "message": $A.get('$Label.c.BC_ErrorToastMessage')
                     });
