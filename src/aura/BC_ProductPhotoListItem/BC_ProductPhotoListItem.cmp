@@ -15,10 +15,10 @@
                 </div>
                 <div id="setAsMainPhotoButton">
                     <aura:if isTrue="{!!if(v.content.ContentDownloadUrl == v.product.MainPhotoUrl__c, true, false)}">
-                        <lightning:button label="Set as Main Photo" variant="brand" onclick="{!c.selectMainPhoto}"/>
+                        <lightning:button label="{!$Label.c.BC_SetAsMainPhoto}" variant="brand" onclick="{!c.selectMainPhoto}"/>
                     </aura:if>
                     <aura:if isTrue="{!if(v.content.ContentDownloadUrl == v.product.MainPhotoUrl__c, true, false)}">
-                        <lightning:button label="Set as Main Photo" variant="brand" onclick="{!c.selectMainPhoto}" disabled="true"/>
+                        <lightning:button label="{!$Label.c.BC_SetAsMainPhoto}" variant="brand" onclick="{!c.selectMainPhoto}" disabled="true"/>
                     </aura:if>
                 </div>
             </div>
