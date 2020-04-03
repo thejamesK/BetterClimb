@@ -3,7 +3,7 @@
         let resultsToast = $A.get("e.force:showToast");
         if (resultsToast) {
             resultsToast.setParams({
-                "title": "Upload complete",
+                "title": $A.get('$Label.c.BC_UploadComplete'),
                 "type" : "success",
             });
             resultsToast.fire();

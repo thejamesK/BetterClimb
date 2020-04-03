@@ -20,7 +20,7 @@ public with sharing class BC_ProductController {
         for(ContentVersion cont : contentVersions) {
             contentVersionsId.add(cont.Id);
         }
-        
+
         List<ContentDistribution> contentDistributions = [SELECT Id, ContentDownloadUrl, Name, RelatedRecordId, ContentVersionId, ContentDocumentId
                                                             FROM ContentDistribution
                                                             WHERE ContentVersionId IN :contentVersionsId];

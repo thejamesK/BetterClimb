@@ -1,6 +1,5 @@
 ({
     init : function (component, event, helper) {
-        console.log('init');
         let action = component.get('c.getUserInfo');
         action.setCallback(this, function (response) {
             let state = response.getState();
@@ -11,7 +10,7 @@
                 let resultsToast = $A.get("e.force:showToast");
                 if (resultsToast) {
                     resultsToast.setParams({
-                        "title": "Error",
+                        "title": $A.get('$Label.c.BC_ToastError'),
                         "type" : "error",
                         "message": $A.get('$Label.c.BC_ErrorToastMessage')
                     });
@@ -22,14 +21,11 @@
         $A.enqueueAction(action);
     },
     handleShippingDetailsEvt : function (component, event, helper) {
-        console.log('odbieram event');
         let productList = event.getParam('productList');
         let userDetails = component.get('v.userDetails');
         component.set('v.productList', productList);
         let productListJSON = JSON.stringify(productList);
         let userDetailsJSON = JSON.stringify(userDetails);
-        console.log(productListJSON);
-        console.log(userDetailsJSON);
         let action = component.get('c.createOrder');
         action.setParams({
             productList: productListJSON,
@@ -47,7 +43,7 @@
                 let resultsToast = $A.get("e.force:showToast");
                 if (resultsToast) {
                     resultsToast.setParams({
-                        "title": "Error",
+                        "title": $A.get('$Label.c.BC_ToastError'),
                         "type" : "error",
                         "message": $A.get('$Label.c.BC_ErrorToastMessage')
                     });

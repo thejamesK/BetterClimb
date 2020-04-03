@@ -16,7 +16,7 @@
                 <img src="{!v.productWrapper.productMainPhotoUrl}" />
             </aura:if>
             <aura:if isTrue="{!v.productWrapper.productMainPhotoUrl == null}">
-                <img src="{!$Resource.ClimbingShoes}" />
+                <img src="{!$Resource.climbingShoes}" />
             </aura:if>
         </div>
         <div style="display: flex; justify-content: space-between; flex-direction: column; height: 65px;">
