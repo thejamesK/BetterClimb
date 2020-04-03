@@ -2,12 +2,8 @@
     <aura:attribute name="contentDistributions" type="List" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler event="c:BC_ProductPhotoSetEvt" action="{!c.doInit}" />
-<!--    <lightning:card title="Product Photos" iconName="standard:canvas" >-->
-<!--    <div style="display: flex; justify-content: center;" >-->
         <c:BC_ProductPhotoUpload productId="{!v.recordId}" />
-<!--    </div>-->
     <aura:iteration items="{!v.contentDistributions}" var="content">
         <c:BC_ProductPhotoListItem content="{!content}" productId="{!v.recordId}"/>
     </aura:iteration>
-<!--    </lightning:card>-->
 </aura:component>

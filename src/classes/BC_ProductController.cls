@@ -12,9 +12,22 @@ public with sharing class BC_ProductController {
             contentDocumentsId.add(cdl.ContentDocumentId);
         }
 
+        List<ContentVersion> contentVersions = [SELECT Id, ContentDocumentId FROM ContentVersion
+                                                WHERE ContentDocumentId IN :contentDocumentsId
+                                                AND FileType IN ('PNG', 'JPG', 'JPEG')];
+
+        List<String> contentVersionsId = new List<String>();
+        for(ContentVersion cont : contentVersions) {
+            contentVersionsId.add(cont.Id);
+        }
+
+//        List<ContentDistribution> contentDistributions = [SELECT Id, ContentDownloadUrl, Name, RelatedRecordId, ContentVersionId, ContentDocumentId
+//                                                            FROM ContentDistribution
+//                                                            WHERE ContentDocumentId IN :contentDocumentsId];
+
         List<ContentDistribution> contentDistributions = [SELECT Id, ContentDownloadUrl, Name, RelatedRecordId, ContentVersionId, ContentDocumentId
                                                             FROM ContentDistribution
-                                                            WHERE ContentDocumentId IN :contentDocumentsId];
+                                                            WHERE ContentVersionId IN :contentVersionsId];
 
         return contentDistributions;
     }
