@@ -31,9 +31,9 @@
                     let resultsToast = $A.get("e.force:showToast");
                     if (resultsToast) {
                         resultsToast.setParams({
-                            "title": "Product added",
+                            "title": $A.get('$Label.c.BC_ProductAdded'),
                             "type" : "success",
-                            "message": component.get('v.productWrapper.productName') + " was added to cart. Quantity: " + component.get('v.productWrapper.productQuantity')
+                            "message": component.get('v.productWrapper.productName') + ' ' + $A.get('$Label.c.BC_AddedAndQuantity') + ' ' + component.get('v.productWrapper.productQuantity')
                         });
                         resultsToast.fire();
 
@@ -44,9 +44,9 @@
                     let resultsToast = $A.get("e.force:showToast");
                     if (resultsToast) {
                         resultsToast.setParams({
-                            "title": "Can't add product",
+                            "title": $A.get('$Label.c.BC_CantAdd'),
                             "type" : "error",
-                            "message": component.get('v.productWrapper.productName') + " is already in your cart"
+                            "message": component.get('v.productWrapper.productName') + ' ' + $A.get('$Label.c.BC_AlreadyInCart')
                         });
                         resultsToast.fire();
                     }
@@ -55,7 +55,7 @@
                 let resultsToast = $A.get("e.force:showToast");
                 if (resultsToast) {
                     resultsToast.setParams({
-                        "title": "Error",
+                        "title": $A.get('$Label.c.BC_ToastError'),
                         "type" : "error",
                         "message": $A.get('$Label.c.BC_ErrorToastMessage')
                     });

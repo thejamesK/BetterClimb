@@ -4,7 +4,7 @@ public with sharing class BC_CommunitySearchController {
         String keyword = '%' + searchText + '%';
         Map<Id, Product2> results = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Name LIKE :keyword]);
 
-        List<PriceBookEntry> lstpbe = [SELECT Id, Product2.Id, Product2.Name, Product2.Description, UnitPrice, Pricebook2Id, Product2Id
+        List<PriceBookEntry> lstpbe = [SELECT Id, Product2.Id, Product2.Name, Product2.Description, Product2.MainPhotoUrl__c, UnitPrice, Pricebook2Id, Product2Id
                                         FROM PriceBookEntry
                                         WHERE Product2Id IN (SELECT Id
                                                                 FROM Product2
@@ -24,7 +24,7 @@ public with sharing class BC_CommunitySearchController {
     @AuraEnabled
     public static BC_ProductWrapper goToProduct(String productId) {
         Map<Id, Product2> results = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Id = :productId]);
-        List<PriceBookEntry> lstpbe = [SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice, Pricebook2Id, Product2Id
+        List<PriceBookEntry> lstpbe = [SELECT Product2.Id, Product2.Name, Product2.Description, Product2.MainPhotoUrl__c, UnitPrice, Pricebook2Id, Product2Id
                                         FROM PriceBookEntry
                                         WHERE Product2Id IN (SELECT Id
                                         FROM Product2
