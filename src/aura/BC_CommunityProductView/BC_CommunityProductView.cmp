@@ -28,7 +28,7 @@
                             <div class="slds-text-heading--label" style="font-size: 30px; color: black;">
                                 {!v.productWrapper.productName}
                             </div>
-                            <div class="slds-text-heading--label" style="font-size: 25px; color: red;">
+                            <div class="slds-text-heading--label" style="font-size: 25px; color: black; padding-top: 1rem;">
                                 <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
                             </div>
                         </div>
