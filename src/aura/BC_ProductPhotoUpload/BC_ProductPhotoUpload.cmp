@@ -1,0 +1,21 @@
+<aura:component description="BC_ProductPhotoUpload">
+    <aura:attribute name="productId" type="String" />
+
+    <aura:registerEvent name="productPhotoSet" type="c:BC_ProductPhotoSetEvt" />
+
+    <lightning:layout horizontalAlign="center">
+        <lightning:layoutItem size="8">
+            <div style="display: flex; justify-content: center; align-items: center;" >
+                <lightning:fileUpload label="Add photo"
+                                      name="fileUploader"
+                                      multiple="false"
+                                      accept=".png, .jpg, .jpeg"
+                                      recordId="{!v.productId}"
+                                      onuploadfinished="{!c.handleUploadFinished}" />
+            </div>
+            <hr style="color: darkgray" />
+        </lightning:layoutItem>
+    </lightning:layout>
+
+
+</aura:component>

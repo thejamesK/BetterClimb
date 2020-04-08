@@ -1,0 +1,11 @@
+<aura:component description="BC_ProductPhotoList" implements="flexipage:availableForAllPageTypes, force:hasRecordId" access="global" controller="BC_ProductController">
+    <aura:attribute name="contentDistributions" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:BC_ProductPhotoSetEvt" action="{!c.doInit}" />
+
+    <c:BC_ProductPhotoUpload productId="{!v.recordId}" />
+    <aura:iteration items="{!v.contentDistributions}" var="content">
+        <c:BC_ProductPhotoListItem content="{!content}" productId="{!v.recordId}"/>
+    </aura:iteration>
+</aura:component>
