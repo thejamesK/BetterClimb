@@ -24,7 +24,7 @@
                 {!v.productWrapper.productName}
             </div>
             <div style="display: flex; justify-content: space-between;">
-                <div style="display: flex; padding-top: 5px; color: red; align-items: center;" class="slds-text-heading--label" onclick="{!c.handleProductClick}">
+                <div style="display: flex; padding-top: 5px; color: black; align-items: center;" class="slds-text-heading--label" onclick="{!c.handleProductClick}">
                     <lightning:formattedNumber value="{!v.productWrapper.productPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
                 </div>
                 <div style="padding-top: 5px; height: 100%">

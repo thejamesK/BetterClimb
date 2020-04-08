@@ -10,23 +10,19 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>BC_CommunityProductItemController</apexClass>
+        <apexClass>BC_CommunityProductViewController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>BC_CommunitySearchController</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>BC_ContentDocumentHelper</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>BC_GenerateContentDistribution</apexClass>
+        <apexClass>BC_ProductReviews</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>BC_ProductWrapper</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>BC_RatingWrapper</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <custom>true</custom>
