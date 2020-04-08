@@ -1,0 +1,35 @@
+<aura:component implements="forceCommunity:themeLayout" description="BC_HeaderCustomTheme">
+    <aura:attribute name="search" type="Aura.Component[]" />
+    <aura:attribute name="profileMenu" type="Aura.Component[]" />
+    <aura:attribute name="header" type="Aura.Component[]" />
+
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="12">
+            <div style="background: center / cover no-repeat url('/sfsites/c/resource/1585223179000/Banner'); border: #373737 3px solid">
+                <lightning:layout horizontalAlign="center" verticalAlign="center" multipleRows="true">
+                    <lightning:layoutItem size="2" padding="around-small">
+                        <a onclick="{!c.goToHomepage}">
+                            <img src="{!$Resource.logo2}"/>
+                        </a>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="4">
+                        {!v.search}
+                    </lightning:layoutItem>
+                    <lightning:layoutItem>
+                        <div>
+                            <c:BC_BasketIcon />
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="1">
+                        <div>
+                            {!v.profileMenu}
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+            {!v.body}
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

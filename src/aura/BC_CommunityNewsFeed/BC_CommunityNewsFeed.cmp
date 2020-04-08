@@ -1,0 +1,11 @@
+<aura:component description="BC_CommunityNewsFeed" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <div>
+        <c:BC_CommunityNewsFeedItem />
+    </div>
+    <div>
+        <c:BC_NewsFeedItemRight />
+    </div>
+    <div>
+        <c:BC_NewsFeedItemLeft />
+    </div>
+</aura:component>
