@@ -10,6 +10,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>BC_CommunityProductItemController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>BC_CommunitySearchController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
