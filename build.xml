@@ -13,7 +13,7 @@
     </taskdef>
 
     <!--        SBX     -->
-    <!-- <target name="deploy-to-org2">
+    <target name="deploy-to-org2">
         <sf:deploy
                 username="${sandbox.sbx.username}"
                 password="${sandbox.sbx.password}"
@@ -22,8 +22,8 @@
                 testLevel="NoTestRun"
                 maxPoll="2000"
                 ignorewarnings="true"/>
-    </target> -->
-    <target name="deploy-to-org2">
+    </target>
+<!--     <target name="deploy-to-org2">
         <sf:deploy
                 username="lefreyo@gmail.com"
                 password="w0W3kfx2JYEssYiMFzcm7Vri8TbkAWZzVpugH"
@@ -32,5 +32,5 @@
                 testLevel="NoTestRun"
                 maxPoll="2000"
                 ignorewarnings="true"/>
-    </target>
+    </target> -->
 </project>
