@@ -1,0 +1,36 @@
+<project name="BriteCRM deployments" default="deploy-to-org2" basedir="." xmlns:sf="antlib:com.salesforce">
+    <property file="build.properties"/>
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="${dir.deployments.config}/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+    <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
+        <classpath>
+            <pathelement location="${dir.deployments.config}/ant-salesforce_38.jar"/>
+            <pathelement location="${dir.deployments.config}/ant-deploy-with-xml-report-task-1.3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <!--        SBX     -->
+    <target name="deploy-to-org2">
+        <sf:deploy
+                username="${sandbox.sbx.username}"
+                password="${sandbox.sbx.password}"
+                serverurl="${general.url.prod}"
+                deployRoot="${dir.src}"
+                testLevel="NoTestRun"
+                maxPoll="2000"
+                ignorewarnings="true"/>
+    </target>
+<!--     <target name="deploy-to-org2">
+        <sf:deploy
+                username="lefreyo@gmail.com"
+                password="w0W3kfx2JYEssYiMFzcm7Vri8TbkAWZzVpugH"
+                serverurl="https://login.salesforce.com"
+                deployRoot="src"
+                testLevel="NoTestRun"
+                maxPoll="2000"
+                ignorewarnings="true"/>
+    </target> -->
+</project>
