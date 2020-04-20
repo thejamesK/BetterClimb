@@ -4,18 +4,26 @@ public with sharing class BC_CommunitySearchController {
         String keyword = '%' + searchText + '%';
         Map<Id, Product2> results = new Map<Id, Product2>([SELECT Id, Name FROM Product2 WHERE Name LIKE :keyword]);
 
-        List<PriceBookEntry> lstpbe = [SELECT Id, Product2.Id, Product2.Name, Product2.Description, Product2.MainPhotoUrl__c, UnitPrice, Pricebook2Id, Product2Id
-                                        FROM PriceBookEntry
-                                        WHERE Product2Id IN (SELECT Id
-                                                                FROM Product2
-                                                                WHERE Name LIKE :keyword)];
+        List<Product2> products = [
+                SELECT Id, Name, Description, MainPhotoUrl__c,
+                        (SELECT Id, Pricebook2.Name, UnitPrice, Product2Id, Pricebook2Id, Product2.Name, Product2.Description, Product2.MainPhotoUrl__c
+                        FROM PricebookEntries
+                        WHERE Pricebook2.isActive = true
+                        AND ((Pricebook2.DiscountStartDate__c <= TODAY
+                        OR Pricebook2.DiscountStartDate__c = null)
+                        AND (Pricebook2.DiscountEndDate__c >= TODAY
+                        OR Pricebook2.DiscountEndDate__c = null)))
+                FROM Product2
+                WHERE Name LIKE :keyword
+        ];
 
         Map<Id, List<ContentDistribution>> productToContent = prepareProductsContent(results.keySet());
 
         List<BC_ProductWrapper> wrappedProductList = new List<BC_ProductWrapper>();
 
-        for(PricebookEntry pbe : lstpbe) {
-            wrappedProductList.add(BC_ProductWrapper.BC_ProductWrapper(pbe, productToContent.get(pbe.Product2.Id)));
+        for(Product2 product : products) {
+            System.debug(product.PricebookEntries);
+            wrappedProductList.add(BC_ProductWrapper.BC_ProductWrapper(product.PricebookEntries, productToContent.get(product.Id)));
         }
 
         return wrappedProductList;
@@ -29,10 +37,25 @@ public with sharing class BC_CommunitySearchController {
                                         WHERE Product2Id IN (SELECT Id
                                         FROM Product2
                                         WHERE Id = :productId)];
+
+        List<Product2> products = [
+                SELECT Id, Name, Description, MainPhotoUrl__c,
+                (SELECT Id, Pricebook2.Name, UnitPrice, Product2Id, Pricebook2Id, Product2.Name, Product2.Description, Product2.MainPhotoUrl__c
+                FROM PricebookEntries
+                WHERE Pricebook2.isActive = true
+                AND ((Pricebook2.DiscountStartDate__c <= TODAY
+                OR Pricebook2.DiscountStartDate__c = null)
+                AND (Pricebook2.DiscountEndDate__c >= TODAY
+                OR Pricebook2.DiscountEndDate__c = null)))
+                FROM Product2
+                WHERE Id = :productId
+        ];
+
         Map<Id, List<ContentDistribution>> productToContent = prepareProductsContent(results.keySet());
         List<BC_ProductWrapper> wrappedProductList = new List<BC_ProductWrapper>();
-        for(PricebookEntry pbe : lstpbe) {
-            wrappedProductList.add(BC_ProductWrapper.BC_ProductWrapper(pbe, productToContent.get(pbe.Product2.Id)));
+        for(Product2 product : products) {
+            System.debug(product.PricebookEntries);
+            wrappedProductList.add(BC_ProductWrapper.BC_ProductWrapper(product.PricebookEntries, productToContent.get(product.Id)));
         }
 
         return wrappedProductList[0];
