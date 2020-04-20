@@ -13,12 +13,22 @@
     </taskdef>
 
     <!--        SBX     -->
-    <target name="deploy-to-org2">
+    <!-- <target name="deploy-to-org2">
         <sf:deploy
                 username="${sandbox.sbx.username}"
                 password="${sandbox.sbx.password}"
                 serverurl="${general.url.prod}"
                 deployRoot="${dir.src}"
+                testLevel="NoTestRun"
+                maxPoll="2000"
+                ignorewarnings="true"/>
+    </target> -->
+    <target name="deploy-to-org2">
+        <sf:deploy
+                username="lefreyo@gmail.com"
+                password="w0W3kfx2JYEssYiMFzcm7Vri8TbkAWZzVpugH"
+                serverurl="https://login.salesforce.com"
+                deployRoot="src"
                 testLevel="NoTestRun"
                 maxPoll="2000"
                 ignorewarnings="true"/>
