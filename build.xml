@@ -1,4 +1,4 @@
-<project name="BriteCRM deployments" default="deploy-sbx" basedir="." xmlns:sf="antlib:com.salesforce">
+<project name="BriteCRM deployments" default="deploy-to-org2" basedir="." xmlns:sf="antlib:com.salesforce">
     <property file="build.properties"/>
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
