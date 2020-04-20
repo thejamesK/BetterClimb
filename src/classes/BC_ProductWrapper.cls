@@ -8,20 +8,49 @@ public with sharing class BC_ProductWrapper {
     @AuraEnabled public Integer productQuantity;
     @AuraEnabled public String productPricebookEntryId;
     @AuraEnabled public String productMainPhotoUrl;
+    @AuraEnabled public Decimal productCurrentPrice;
+    @AuraEnabled public Boolean isProductSelected;
+    @AuraEnabled public Decimal productPriceToSet;
+    @AuraEnabled public String currentPBEId;
     
     @AuraEnabled
-    public static BC_ProductWrapper BC_ProductWrapper(PricebookEntry pricebookEntry, List<ContentDistribution> contentDistributions) {
+    public static BC_ProductWrapper BC_ProductWrapper(List<PricebookEntry> pricebookEntries, List<ContentDistribution> contentDistributions) {
+        BC_PricebookUtils utils = new BC_PricebookUtils(pricebookEntries);
         BC_ProductWrapper wrappedProduct = new BC_ProductWrapper();
-        wrappedProduct.pricebookId = pricebookEntry.Pricebook2Id;
-        wrappedProduct.productId = pricebookEntry.Product2Id;
-        wrappedProduct.productName = pricebookEntry.Product2.Name;
-        wrappedProduct.productDescription = pricebookEntry.Product2.Description;
-        wrappedProduct.productPrice = (Decimal)pricebookEntry.UnitPrice;
-        wrappedProduct.productImageUrls = BC_CommunitySearchController.prepareContentUrls(contentDistributions);
-        wrappedProduct.productQuantity = 1;
-        wrappedProduct.productPricebookEntryId = pricebookEntry.Id;
-        wrappedProduct.productMainPhotoUrl = pricebookEntry.Product2.MainPhotoUrl__c;
-        
+        if(utils.isStandardPricebook()){
+            PricebookEntry standardPriceBookEntry = utils.getStandardPricebook();
+            wrappedProduct.pricebookId = standardPriceBookEntry.Pricebook2Id;
+            wrappedProduct.productId = standardPriceBookEntry.Product2Id;
+            wrappedProduct.productName = standardPriceBookEntry.Product2.Name;
+            wrappedProduct.productDescription = standardPriceBookEntry.Product2.Description;
+            wrappedProduct.productPrice = (Decimal)standardPriceBookEntry.UnitPrice;
+            wrappedProduct.productImageUrls = BC_CommunitySearchController.prepareContentUrls(contentDistributions);
+            wrappedProduct.productQuantity = 1;
+            wrappedProduct.productPricebookEntryId = standardPriceBookEntry.Id;
+            wrappedProduct.productMainPhotoUrl = standardPriceBookEntry.Product2.MainPhotoUrl__c;
+            if(utils.isDiscountPricebook()){
+                PricebookEntry discountPriceBookEntry = utils.getDiscountPricebook();
+                wrappedProduct.productCurrentPrice = discountPriceBookEntry.UnitPrice;
+            }
+        }
+
+        return wrappedProduct;
+    }
+
+    @AuraEnabled
+    public static BC_ProductWrapper BC_ProductWrapper(List<PricebookEntry> pricebookEntries) {
+        BC_PricebookUtils utils = new BC_PricebookUtils(pricebookEntries);
+        BC_ProductWrapper wrappedProduct = new BC_ProductWrapper();
+        if(utils.isStandardPricebook()){
+            PricebookEntry standardPriceBookEntry = utils.getStandardPricebook();
+            wrappedProduct.pricebookId = standardPriceBookEntry.Pricebook2Id;
+            wrappedProduct.productId = standardPriceBookEntry.Product2Id;
+            wrappedProduct.productName = standardPriceBookEntry.Product2.Name;
+            wrappedProduct.productPrice = (Decimal)standardPriceBookEntry.UnitPrice;
+            wrappedProduct.productPricebookEntryId = standardPriceBookEntry.Id;
+            wrappedProduct.productMainPhotoUrl = standardPriceBookEntry.Product2.MainPhotoUrl__c;
+        }
+
         return wrappedProduct;
     }
 }
