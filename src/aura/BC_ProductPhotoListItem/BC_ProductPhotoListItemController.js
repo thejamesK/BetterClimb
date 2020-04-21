@@ -13,7 +13,7 @@
                 let resultsToast = $A.get("e.force:showToast");
                 if (resultsToast) {
                     resultsToast.setParams({
-                        "title": $A.get('$Label.c.BC_ChangedMainPhoto'),
+                        "title": $A.get("$Label.c.BC_ChangedMainPhoto"),
                         "type" : "success",
                     });
                     resultsToast.fire();
@@ -26,9 +26,9 @@
                 let resultsToast = $A.get("e.force:showToast");
                 if (resultsToast) {
                     resultsToast.setParams({
-                        "title": $A.get('$Label.c.BC_ToastError'),
+                        "title": $A.get("$Label.c.BC_ToastError"),
                         "type" : "error",
-                        "message": $A.get('$Label.c.BC_ErrorToastMessage')
+                        "message": $A.get("$Label.c.BC_ErrorToastMessage")
                     });
                     resultsToast.fire();
                 }
@@ -51,9 +51,9 @@
                 let resultsToast = $A.get("e.force:showToast");
                 if (resultsToast) {
                     resultsToast.setParams({
-                        "title": $A.get('$Label.c.BC_ToastError'),
+                        "title": $A.get("$Label.c.BC_ToastError"),
                         "type" : "error",
-                        "message": $A.get('$Label.c.BC_ErrorToastMessage')
+                        "message": $A.get("$Label.c.BC_ErrorToastMessage")
                     });
                     resultsToast.fire();
                 }
