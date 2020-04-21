@@ -20,9 +20,9 @@
                     let resultsToast = $A.get("e.force:showToast");
                     if (resultsToast) {
                         resultsToast.setParams({
-                            "title": $A.get('$Label.c.BC_ProductAdded'),
+                            "title": $A.get("$Label.c.BC_ProductAdded"),
                             "type" : "success",
-                            "message": component.get('v.productWrapper.productName') +' ' + $A.get('$Label.c.BC_WasAddedToCart')
+                            "message": component.get('v.productWrapper.productName') +' ' + $A.get("$Label.c.BC_WasAddedToCart")
                         });
                         resultsToast.fire();
 
@@ -35,7 +35,7 @@
                         resultsToast.setParams({
                             "title": $A.get('$Label.c.BC_CantAdd'),
                             "type" : "error",
-                            "message": component.get('v.productWrapper.productName') + ' ' + $A.get('$Label.c.BC_AlreadyInCart')
+                            "message": component.get('v.productWrapper.productName') + ' ' + $A.get("$Label.c.BC_AlreadyInCart")
                         });
                         resultsToast.fire();
                     }
@@ -46,7 +46,7 @@
                     resultsToast.setParams({
                         "title": $A.get('$Label.c.BC_ToastError'),
                         "type" : "error",
-                        "message": $A.get('$Label.c.BC_ErrorToastMessage')
+                        "message": $A.get("$Label.c.BC_ErrorToastMessage")
                     });
                     resultsToast.fire();
                 }
