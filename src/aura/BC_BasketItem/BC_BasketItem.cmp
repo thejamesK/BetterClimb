@@ -1,0 +1,47 @@
+<aura:component description="BC_BasketItem" controller="BC_CommunitySearchController">
+    <aura:attribute name="product" type="BC_ProductWrapper" />
+    <aura:attribute name="productId" type="String" />
+
+    <aura:registerEvent name="cartEvent" type="c:BC_CartEvent" />
+    <aura:registerEvent name="headerEvent" type="c:BC_UpdateBasketHeaderEvent" />
+
+    <div id="basketItemWithBar" style="display: flex; flex-direction: column; padding: 4px; border-bottom: 1px solid lightgrey;">
+            <div id="whatItem" style="display: flex; align-items: center; padding: 2px; justify-content: space-evenly; width: auto;">
+                <div id="itemImage" style="border: 1px darkgray solid; width: 150px; height: auto;">
+                    <img src="{!v.product.productMainPhotoUrl}" />
+                </div>
+                <a onclick="{!c.handleGoToProduct}" style="width: 25%">
+                    <div id="itemName" class="slds-text-heading--label" style="color: black; padding: 1rem; font-size: 1rem;">
+                        {!v.product.productName}
+                    </div>
+                </a>
+                <div id="itemQuantity" style="width: 20%">
+                    <div class="slds-form-element" style="width: 8rem;">
+                        <div class="slds-form-element__control">
+                            <lightning:buttonIcon iconName="utility:dash" alternativeText="minus" class="slds-button slds-button_icon slds-button_icon-small slds-input__button_decrement" onclick="{!c.lessQuantity}" />
+                            <output type="number" min="1" max="100" id="default1" class="slds-input slds-input_counter" value="{!v.product.productQuantity}" />
+                            <lightning:buttonIcon iconName="utility:add" alternativeText="add" class="slds-button slds-button_icon slds-button_icon-small slds-input__button_increment" onclick="{!c.moreQuantity}"/>
+                        </div>
+                    </div>
+                </div>
+                <aura:if isTrue="{!!if(v.product.productCurrentPrice!=null,true,false)}">
+                    <div id="itemPrice" class="slds-text-heading--label" style="padding: 1rem; color: black; font-size: 1rem;">
+                        <lightning:formattedNumber value="{!v.product.productQuantity * v.product.productPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!if(v.product.productCurrentPrice!=null,true,false)}">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div id="itemPrice" class="slds-text-heading--label" style="padding: 1rem; color: black; font-size: 1rem; text-decoration: line-through">
+                            <lightning:formattedNumber value="{!v.product.productQuantity * v.product.productPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
+                        </div>
+                        <div id="itemPrice" class="slds-text-heading--label" style="padding: 1rem; color: red; font-size: 1rem;">
+                            <lightning:formattedNumber value="{!v.product.productQuantity * v.product.productCurrentPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
+                        </div>
+                    </div>
+                </aura:if>
+                <div id="deleteItem" >
+                    <lightning:buttonIcon iconName="utility:delete" alternativeText="delete" variant="border-filled" onclick="{!c.deleteItem}"/>
+                </div>
+            </div>
+    </div>
+</aura:component>
