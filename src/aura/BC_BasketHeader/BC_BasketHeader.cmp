@@ -1,0 +1,25 @@
+<aura:component description="BC_BasketHeader" controller="BC_BasketController">
+    <aura:attribute name="totalPrice" type="Decimal" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:handler event="c:BC_CartEvent" action="{!c.doInit}" />
+    <aura:handler event="c:BC_UpdateBasketHeaderEvent" action="{!c.handleUpdateHeader}" />
+    <aura:handler event="c:BC_CheckoutEvent" action="{!c.handleCheckoutEvt}" />
+    <aura:handler event="c:BC_CheckoutFromIcon" action="{!c.handleCheckoutEvt}" />
+
+
+    <div id="basketHeader" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1rem 1rem 1rem; background: white; border-bottom: 1px solid lightgray">
+        <div id="yourBasket" class="slds-text-heading--label" style="color: black; font-weight: bold; font-size: 20px;">
+            {!$Label.c.BC_YourBasket}
+        </div>
+        <div id="basketValue" style="display: flex; align-items: center; justify-content: space-around">
+            <div id="basketValueText" class="slds-text-heading--label" style="color: darkgray; padding-right: 1rem;">
+                {!$Label.c.BC_BasketValue}
+            </div>
+            <div id="basketValuePrice" class="slds-text-heading--label" style="font-size: 30px; color: black;">
+                <lightning:formattedNumber value="{!v.totalPrice}" currencyCode="{!$Locale.currencyCode}" style="currency" />
+            </div>
+        </div>
+    </div>
+</aura:component>
