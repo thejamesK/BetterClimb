@@ -1,0 +1,26 @@
+<aura:component description="BC_BasketIcon" controller="BC_BasketController">
+    <aura:attribute name="productList" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:handler event="c:BC_CartEvent" action="{!c.doInit}" />
+    <aura:handler event="c:BC_UpdateBasketHeaderEvent" action="{!c.doInit}" />
+    <aura:handler event="c:BC_CheckoutFromIcon" action="{!c.handleCheckoutEvt}" />
+
+    <div onclick="{!c.handleBasketClick}" onmouseover="{!c.showBasket}" onmouseout="{!c.hideBasket}">
+        <lightning:icon iconName="utility:cart" variant="inverse"/>
+    </div>
+    <div id="basket" style="visibility: hidden; position:absolute; right: 10%; z-index: 10; border: 1px solid lightgrey;" onmouseover="{!c.showBasket}" onmouseout="{!c.hideBasket}">
+        <div style="background: whitesmoke; width: 40rem; height: auto; max-height: 35rem; display: flex; flex-direction: column; ">
+            <div style="flex-shrink: 0">
+                <c:BC_BasketHeader />
+            </div>
+            <div style="overflow-y: auto">
+                <aura:iteration items="{!v.productList}" var="product">
+                    <c:BC_BasketItem product="{!product}" />
+                </aura:iteration>
+            </div>
+                <c:BC_BasketFooter />
+        </div>
+    </div>
+</aura:component>
