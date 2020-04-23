@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="BC_UpdateBasketHeaderEvent">
+    <aura:attribute name="product" type="BC_ProductWrapper" />
+    <aura:attribute name="moreOrLess" type="String" />
+    <aura:attribute name="quantity" type="Integer" />
+</aura:event>
