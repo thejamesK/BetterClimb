@@ -1,0 +1,12 @@
+<aura:component description="BC_BasketFooter">
+    <aura:registerEvent type="c:BC_CheckoutEvent" name="checkoutEvent" />
+
+    <div id="basketFooter" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1rem 1rem 1rem; background: white;">
+        <div id="showBasket" style="font-size: 20px;" onclick="{!c.handleGoToBasket}">
+            <lightning:button variant="base" label="{!$Label.c.BC_MyBasket}"/>
+        </div>
+        <div id="payForOrder" >
+            <lightning:button variant="brand" label="{!$Label.c.BC_Checkout}" class="checkoutButton" onclick="{!c.handleGoToOrderSummary}"/>
+        </div>
+    </div>
+</aura:component>
